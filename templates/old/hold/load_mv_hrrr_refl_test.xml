@@ -1,0 +1,72 @@
+<load_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_hrrr_refl_test</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+    <management_system>aurora</management_system>
+  </connection>
+
+  <met_version>V8.1</met_version>
+
+  <verbose>true</verbose>
+  <insert_size>1</insert_size>
+  <mode_header_db_check>true</mode_header_db_check>
+  <stat_header_db_check>true</stat_header_db_check>
+  <drop_indexes>false</drop_indexes>
+  <apply_indexes>true</apply_indexes>
+  <load_stat>true</load_stat>
+  <load_mode>true</load_mode>
+  <load_mpr>true</load_mpr>
+  <load_orank>true</load_orank>
+  <force_dup_file>false</force_dup_file>
+  <group>ldawson</group>
+  <description>HRRRv4/v3 grid-to-grid reflectivity verification</description>
+  <load_files>
+    <file>/base_dir/HRRR_20191119.stat</file>
+    <file>/base_dir/HRRR_20191120.stat</file>
+    <file>/base_dir/HRRR_20191121.stat</file>
+    <file>/base_dir/HRRR_20191122.stat</file>
+    <file>/base_dir/HRRR_20191123.stat</file>
+    <file>/base_dir/HRRR_20191124.stat</file>
+    <file>/base_dir/HRRR_20191125.stat</file>
+    <file>/base_dir/HRRR_20191126.stat</file>
+    <file>/base_dir/HRRR_20191127.stat</file>
+    <file>/base_dir/HRRR_20191128.stat</file>
+    <file>/base_dir/HRRR_20191129.stat</file>
+    <file>/base_dir/HRRR_20191130.stat</file>
+    <file>/base_dir/HRRR_20191201.stat</file>
+    <file>/base_dir/HRRR_20191202.stat</file>
+    <file>/base_dir/HRRR_20191203.stat</file>
+    <file>/base_dir/HRRR_20191204.stat</file>
+    <file>/base_dir/HRRR_20191205.stat</file>
+    <file>/base_dir/HRRR_20191206.stat</file>
+    <file>/base_dir/HRRR_20191207.stat</file>
+    <file>/base_dir/HRRR_20191208.stat</file>
+    <file>/base_dir/HRRR_20191209.stat</file>
+    <file>/base_dir/HRRR_20191210.stat</file>
+    <file>/base_dir/HRRRX_20191119.stat</file>
+    <file>/base_dir/HRRRX_20191120.stat</file>
+    <file>/base_dir/HRRRX_20191121.stat</file>
+    <file>/base_dir/HRRRX_20191122.stat</file>
+    <file>/base_dir/HRRRX_20191123.stat</file>
+    <file>/base_dir/HRRRX_20191124.stat</file>
+    <file>/base_dir/HRRRX_20191125.stat</file>
+    <file>/base_dir/HRRRX_20191126.stat</file>
+    <file>/base_dir/HRRRX_20191127.stat</file>
+    <file>/base_dir/HRRRX_20191128.stat</file>
+    <file>/base_dir/HRRRX_20191129.stat</file>
+    <file>/base_dir/HRRRX_20191130.stat</file>
+    <file>/base_dir/HRRRX_20191201.stat</file>
+    <file>/base_dir/HRRRX_20191202.stat</file>
+    <file>/base_dir/HRRRX_20191203.stat</file>
+    <file>/base_dir/HRRRX_20191204.stat</file>
+    <file>/base_dir/HRRRX_20191205.stat</file>
+    <file>/base_dir/HRRRX_20191206.stat</file>
+    <file>/base_dir/HRRRX_20191207.stat</file>
+    <file>/base_dir/HRRRX_20191208.stat</file>
+    <file>/base_dir/HRRRX_20191209.stat</file>
+    <file>/base_dir/HRRRX_20191210.stat</file>
+  </load_files>
+
+</load_spec>

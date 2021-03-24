@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+    <connection>
+        <host>vm-lnx-metviewdev-db1.ncep.noaa.gov:3306</host>
+        <database>mv_met_bblake_prob</database>
+        <user>******</user>
+        <password>******</password>
+    </connection>
+    <rscript>/usr/bin/Rscript</rscript>
+    <folders>
+        <r_tmpl>/var/lib/tomcat6/webapps/metviewer/R_tmpl/</r_tmpl>
+        <r_work>/var/lib/tomcat6/webapps/metviewer/R_work/</r_work>
+        <plots>/common/data/web/metviewer/dev/plots/</plots>
+        <data>/common/data/web/metviewer/dev/data/</data>
+        <scripts>/common/data/web/metviewer/dev/scripts/</scripts>
+    </folders>
+    <plot>
+        <template>rely.R_tmpl</template>
+        <series1>
+            <field name="model">
+                <val>EAS-Frac</val>
+                <val>Frac</val>
+                <val>Point</val>
+            </field>
+            <field name="obs_thresh">
+                <val>&gt;=12.7</val>
+            </field>
+        </series1>
+        <plot_fix>
+            <field equalize="false" name="fcst_var">
+                <set name="fcst_var_0">
+                    <val>PROB(APCP_06&gt;12.700)</val>
+                </set>
+            </field>
+            <field equalize="false" name="vx_mask">
+                <set name="vx_mask_1">
+                    <val>GMC</val>
+                    <val>LMV</val>
+                    <val>MDW</val>
+                    <val>NEC</val>
+                    <val>SEC</val>
+                </set>
+            </field>
+            <field equalize="false" name="fcst_init_beg">
+                <set name="fcst_init_beg_2">
+                    <val>2017-02-03 00:00:00</val>
+                    <val>2017-02-03 12:00:00</val>
+                    <val>2017-02-04 00:00:00</val>
+                    <val>2017-02-04 12:00:00</val>
+                    <val>2017-02-05 00:00:00</val>
+                    <val>2017-02-05 12:00:00</val>
+                    <val>2017-02-06 00:00:00</val>
+                    <val>2017-02-06 12:00:00</val>
+                    <val>2017-02-07 00:00:00</val>
+                    <val>2017-02-08 00:00:00</val>
+                    <val>2017-02-08 12:00:00</val>
+                    <val>2017-02-09 00:00:00</val>
+                    <val>2017-02-10 00:00:00</val>
+                    <val>2017-02-10 12:00:00</val>
+                    <val>2017-02-11 00:00:00</val>
+                    <val>2017-02-11 12:00:00</val>
+                    <val>2017-02-12 00:00:00</val>
+                    <val>2017-02-12 12:00:00</val>
+                    <val>2017-02-15 00:00:00</val>
+                    <val>2017-02-15 12:00:00</val>
+                    <val>2017-02-16 00:00:00</val>
+                    <val>2017-02-16 12:00:00</val>
+                    <val>2017-02-17 00:00:00</val>
+                    <val>2017-02-17 12:00:00</val>
+                    <val>2017-02-20 00:00:00</val>
+                    <val>2017-02-20 12:00:00</val>
+                    <val>2017-02-21 00:00:00</val>
+                    <val>2017-02-27 00:00:00</val>
+                    <val>2017-02-27 12:00:00</val>
+                    <val>2017-02-28 00:00:00</val>
+                    <val>2017-02-28 12:00:00</val>
+                    <val>2017-03-01 00:00:00</val>
+                    <val>2017-03-01 12:00:00</val>
+                    <val>2017-03-02 00:00:00</val>
+                    <val>2017-03-02 12:00:00</val>
+                    <val>2017-03-03 00:00:00</val>
+                    <val>2017-03-03 12:00:00</val>
+                    <val>2017-03-04 00:00:00</val>
+                    <val>2017-03-04 12:00:00</val>
+                    <val>2017-03-05 00:00:00</val>
+                    <val>2017-03-05 12:00:00</val>
+                    <val>2017-03-06 00:00:00</val>
+                    <val>2017-03-06 12:00:00</val>
+                    <val>2017-03-07 00:00:00</val>
+                    <val>2017-03-07 12:00:00</val>
+                    <val>2017-03-08 00:00:00</val>
+                    <val>2017-03-13 00:00:00</val>
+                    <val>2017-03-14 00:00:00</val>
+                    <val>2017-03-14 12:00:00</val>
+                    <val>2017-03-15 00:00:00</val>
+                    <val>2017-03-15 12:00:00</val>
+                    <val>2017-03-16 00:00:00</val>
+                    <val>2017-03-16 12:00:00</val>
+                    <val>2017-03-17 00:00:00</val>
+                    <val>2017-03-17 12:00:00</val>
+                    <val>2017-03-18 00:00:00</val>
+                    <val>2017-03-18 12:00:00</val>
+                    <val>2017-03-19 00:00:00</val>
+                    <val>2017-03-19 12:00:00</val>
+                    <val>2017-03-20 00:00:00</val>
+                    <val>2017-03-23 00:00:00</val>
+                    <val>2017-03-24 00:00:00</val>
+                    <val>2017-03-24 12:00:00</val>
+                    <val>2017-03-25 00:00:00</val>
+                    <val>2017-03-25 12:00:00</val>
+                    <val>2017-03-26 00:00:00</val>
+                    <val>2017-03-26 12:00:00</val>
+                    <val>2017-03-27 00:00:00</val>
+                    <val>2017-03-27 12:00:00</val>
+                    <val>2017-03-28 00:00:00</val>
+                    <val>2017-03-28 12:00:00</val>
+                    <val>2017-03-29 00:00:00</val>
+                    <val>2017-03-29 12:00:00</val>
+                    <val>2017-03-30 00:00:00</val>
+                    <val>2017-03-30 12:00:00</val>
+                    <val>2017-03-31 00:00:00</val>
+                    <val>2017-03-31 12:00:00</val>
+                    <val>2017-04-02 00:00:00</val>
+                    <val>2017-04-02 12:00:00</val>
+                    <val>2017-04-03 00:00:00</val>
+                    <val>2017-04-03 12:00:00</val>
+                    <val>2017-04-04 00:00:00</val>
+                    <val>2017-04-04 12:00:00</val>
+                    <val>2017-04-05 00:00:00</val>
+                    <val>2017-04-05 12:00:00</val>
+                    <val>2017-04-06 00:00:00</val>
+                    <val>2017-04-06 12:00:00</val>
+                    <val>2017-04-07 00:00:00</val>
+                    <val>2017-04-07 12:00:00</val>
+                    <val>2017-04-08 00:00:00</val>
+                    <val>2017-04-08 12:00:00</val>
+                    <val>2017-04-09 00:00:00</val>
+                    <val>2017-04-09 12:00:00</val>
+                    <val>2017-04-10 00:00:00</val>
+                    <val>2017-04-10 12:00:00</val>
+                    <val>2017-04-11 00:00:00</val>
+                    <val>2017-04-11 12:00:00</val>
+                    <val>2017-04-12 00:00:00</val>
+                    <val>2017-04-12 12:00:00</val>
+                    <val>2017-04-13 00:00:00</val>
+                    <val>2017-04-13 12:00:00</val>
+                    <val>2017-04-14 00:00:00</val>
+                    <val>2017-04-15 00:00:00</val>
+                    <val>2017-04-15 12:00:00</val>
+                    <val>2017-04-16 00:00:00</val>
+                    <val>2017-04-16 12:00:00</val>
+                    <val>2017-04-17 00:00:00</val>
+                    <val>2017-04-17 12:00:00</val>
+                    <val>2017-04-18 00:00:00</val>
+                    <val>2017-04-18 12:00:00</val>
+                    <val>2017-04-19 00:00:00</val>
+                    <val>2017-04-19 12:00:00</val>
+                    <val>2017-04-20 00:00:00</val>
+                    <val>2017-04-20 12:00:00</val>
+                    <val>2017-04-21 00:00:00</val>
+                    <val>2017-04-21 12:00:00</val>
+                    <val>2017-04-22 00:00:00</val>
+                    <val>2017-04-22 12:00:00</val>
+                    <val>2017-04-23 00:00:00</val>
+                    <val>2017-04-23 12:00:00</val>
+                    <val>2017-04-24 00:00:00</val>
+                    <val>2017-04-24 12:00:00</val>
+                    <val>2017-04-25 00:00:00</val>
+                    <val>2017-04-25 12:00:00</val>
+                    <val>2017-04-26 00:00:00</val>
+                    <val>2017-04-26 12:00:00</val>
+                    <val>2017-04-27 00:00:00</val>
+                    <val>2017-04-29 00:00:00</val>
+                    <val>2017-04-29 12:00:00</val>
+                    <val>2017-04-30 00:00:00</val>
+                    <val>2017-04-30 12:00:00</val>
+                    <val>2017-05-01 00:00:00</val>
+                    <val>2017-05-01 12:00:00</val>
+                    <val>2017-05-02 00:00:00</val>
+                    <val>2017-05-02 12:00:00</val>
+                    <val>2017-05-03 00:00:00</val>
+                    <val>2017-05-03 12:00:00</val>
+                    <val>2017-05-04 00:00:00</val>
+                    <val>2017-05-04 12:00:00</val>
+                    <val>2017-05-05 00:00:00</val>
+                    <val>2017-05-05 12:00:00</val>
+                    <val>2017-05-06 00:00:00</val>
+                    <val>2017-05-06 12:00:00</val>
+                    <val>2017-05-07 00:00:00</val>
+                    <val>2017-05-07 12:00:00</val>
+                    <val>2017-05-08 00:00:00</val>
+                    <val>2017-05-08 12:00:00</val>
+                    <val>2017-05-09 00:00:00</val>
+                    <val>2017-05-09 12:00:00</val>
+                    <val>2017-05-10 00:00:00</val>
+                    <val>2017-05-11 12:00:00</val>
+                    <val>2017-05-12 00:00:00</val>
+                    <val>2017-05-12 12:00:00</val>
+                    <val>2017-05-13 00:00:00</val>
+                    <val>2017-05-13 12:00:00</val>
+                    <val>2017-05-14 00:00:00</val>
+                    <val>2017-05-14 12:00:00</val>
+                    <val>2017-05-15 00:00:00</val>
+                    <val>2017-05-15 12:00:00</val>
+                    <val>2017-05-16 00:00:00</val>
+                    <val>2017-05-16 12:00:00</val>
+                    <val>2017-05-17 00:00:00</val>
+                    <val>2017-05-17 12:00:00</val>
+                    <val>2017-05-18 00:00:00</val>
+                    <val>2017-05-18 12:00:00</val>
+                    <val>2017-05-19 00:00:00</val>
+                    <val>2017-05-19 12:00:00</val>
+                    <val>2017-05-20 00:00:00</val>
+                    <val>2017-05-20 12:00:00</val>
+                    <val>2017-05-21 00:00:00</val>
+                    <val>2017-05-21 12:00:00</val>
+                    <val>2017-05-22 00:00:00</val>
+                    <val>2017-05-22 12:00:00</val>
+                    <val>2017-05-23 00:00:00</val>
+                    <val>2017-05-23 12:00:00</val>
+                    <val>2017-05-24 00:00:00</val>
+                    <val>2017-05-24 12:00:00</val>
+                    <val>2017-05-25 00:00:00</val>
+                    <val>2017-05-25 12:00:00</val>
+                    <val>2017-05-26 00:00:00</val>
+                    <val>2017-05-26 12:00:00</val>
+                    <val>2017-05-27 00:00:00</val>
+                    <val>2017-05-27 12:00:00</val>
+                    <val>2017-05-28 00:00:00</val>
+                    <val>2017-05-28 12:00:00</val>
+                    <val>2017-05-29 00:00:00</val>
+                    <val>2017-05-29 12:00:00</val>
+                    <val>2017-05-30 00:00:00</val>
+                    <val>2017-05-30 12:00:00</val>
+                    <val>2017-05-31 00:00:00</val>
+                    <val>2017-05-31 12:00:00</val>
+                    <val>2017-06-01 00:00:00</val>
+                    <val>2017-06-01 12:00:00</val>
+                    <val>2017-06-02 00:00:00</val>
+                    <val>2017-06-02 12:00:00</val>
+                    <val>2017-06-03 00:00:00</val>
+                    <val>2017-06-03 12:00:00</val>
+                    <val>2017-06-04 00:00:00</val>
+                    <val>2017-06-04 12:00:00</val>
+                    <val>2017-06-05 00:00:00</val>
+                    <val>2017-06-05 12:00:00</val>
+                    <val>2017-06-06 00:00:00</val>
+                    <val>2017-06-07 12:00:00</val>
+                    <val>2017-06-08 00:00:00</val>
+                    <val>2017-06-08 12:00:00</val>
+                    <val>2017-06-09 00:00:00</val>
+                    <val>2017-06-09 12:00:00</val>
+                    <val>2017-06-10 00:00:00</val>
+                    <val>2017-06-10 12:00:00</val>
+                    <val>2017-06-11 00:00:00</val>
+                    <val>2017-06-11 12:00:00</val>
+                    <val>2017-06-12 00:00:00</val>
+                    <val>2017-06-12 12:00:00</val>
+                    <val>2017-06-13 00:00:00</val>
+                    <val>2017-06-13 12:00:00</val>
+                    <val>2017-06-14 00:00:00</val>
+                    <val>2017-06-14 12:00:00</val>
+                    <val>2017-06-15 00:00:00</val>
+                    <val>2017-06-15 12:00:00</val>
+                    <val>2017-06-16 00:00:00</val>
+                    <val>2017-06-16 12:00:00</val>
+                    <val>2017-06-17 00:00:00</val>
+                    <val>2017-06-17 12:00:00</val>
+                    <val>2017-06-18 00:00:00</val>
+                    <val>2017-06-18 12:00:00</val>
+                    <val>2017-06-19 00:00:00</val>
+                    <val>2017-06-19 12:00:00</val>
+                    <val>2017-06-20 00:00:00</val>
+                    <val>2017-06-20 12:00:00</val>
+                    <val>2017-06-21 00:00:00</val>
+                    <val>2017-06-21 12:00:00</val>
+                    <val>2017-06-22 00:00:00</val>
+                    <val>2017-06-22 12:00:00</val>
+                    <val>2017-06-23 00:00:00</val>
+                    <val>2017-06-23 12:00:00</val>
+                    <val>2017-06-24 00:00:00</val>
+                    <val>2017-06-24 12:00:00</val>
+                    <val>2017-06-25 00:00:00</val>
+                    <val>2017-06-25 12:00:00</val>
+                    <val>2017-06-26 00:00:00</val>
+                    <val>2017-06-26 12:00:00</val>
+                    <val>2017-06-27 00:00:00</val>
+                    <val>2017-06-27 12:00:00</val>
+                    <val>2017-06-28 00:00:00</val>
+                    <val>2017-06-28 12:00:00</val>
+                    <val>2017-06-29 00:00:00</val>
+                    <val>2017-06-29 12:00:00</val>
+                    <val>2017-06-30 12:00:00</val>
+                    <val>2017-07-01 00:00:00</val>
+                    <val>2017-07-01 12:00:00</val>
+                    <val>2017-07-02 00:00:00</val>
+                    <val>2017-07-02 12:00:00</val>
+                    <val>2017-07-03 00:00:00</val>
+                    <val>2017-07-03 12:00:00</val>
+                    <val>2017-07-04 00:00:00</val>
+                    <val>2017-07-04 12:00:00</val>
+                    <val>2017-07-05 00:00:00</val>
+                    <val>2017-07-10 12:00:00</val>
+                    <val>2017-07-11 00:00:00</val>
+                    <val>2017-07-11 12:00:00</val>
+                    <val>2017-07-12 00:00:00</val>
+                    <val>2017-07-13 12:00:00</val>
+                    <val>2017-07-14 00:00:00</val>
+                    <val>2017-07-14 12:00:00</val>
+                    <val>2017-07-15 00:00:00</val>
+                    <val>2017-07-15 12:00:00</val>
+                    <val>2017-07-17 00:00:00</val>
+                    <val>2017-07-17 12:00:00</val>
+                    <val>2017-07-18 00:00:00</val>
+                    <val>2017-07-19 12:00:00</val>
+                    <val>2017-07-20 00:00:00</val>
+                    <val>2017-07-20 12:00:00</val>
+                    <val>2017-07-21 00:00:00</val>
+                    <val>2017-07-21 12:00:00</val>
+                    <val>2017-07-22 00:00:00</val>
+                    <val>2017-07-22 12:00:00</val>
+                    <val>2017-07-23 00:00:00</val>
+                    <val>2017-07-28 12:00:00</val>
+                    <val>2017-07-29 00:00:00</val>
+                    <val>2017-07-29 12:00:00</val>
+                    <val>2017-07-30 00:00:00</val>
+                    <val>2017-07-30 12:00:00</val>
+                    <val>2017-07-31 00:00:00</val>
+                    <val>2017-07-31 12:00:00</val>
+                    <val>2017-08-01 00:00:00</val>
+                    <val>2017-08-01 12:00:00</val>
+                    <val>2017-08-02 00:00:00</val>
+                    <val>2017-08-02 12:00:00</val>
+                    <val>2017-08-03 00:00:00</val>
+                    <val>2017-08-03 12:00:00</val>
+                    <val>2017-08-04 00:00:00</val>
+                    <val>2017-08-04 12:00:00</val>
+                    <val>2017-08-05 00:00:00</val>
+                    <val>2017-08-05 12:00:00</val>
+                    <val>2017-08-06 00:00:00</val>
+                    <val>2017-08-06 12:00:00</val>
+                    <val>2017-08-07 00:00:00</val>
+                    <val>2017-08-07 12:00:00</val>
+                    <val>2017-08-08 00:00:00</val>
+                    <val>2017-08-08 12:00:00</val>
+                    <val>2017-08-09 00:00:00</val>
+                    <val>2017-08-09 12:00:00</val>
+                    <val>2017-08-10 00:00:00</val>
+                    <val>2017-08-10 12:00:00</val>
+                    <val>2017-08-11 00:00:00</val>
+                    <val>2017-08-11 12:00:00</val>
+                    <val>2017-08-12 00:00:00</val>
+                    <val>2017-08-13 00:00:00</val>
+                    <val>2017-08-13 12:00:00</val>
+                    <val>2017-08-14 00:00:00</val>
+                    <val>2017-08-14 12:00:00</val>
+                    <val>2017-08-15 00:00:00</val>
+                    <val>2017-08-15 12:00:00</val>
+                    <val>2017-08-16 00:00:00</val>
+                    <val>2017-08-16 12:00:00</val>
+                    <val>2017-08-17 00:00:00</val>
+                    <val>2017-08-17 12:00:00</val>
+                    <val>2017-08-18 00:00:00</val>
+                    <val>2017-08-18 12:00:00</val>
+                    <val>2017-08-19 00:00:00</val>
+                    <val>2017-08-19 12:00:00</val>
+                    <val>2017-08-20 00:00:00</val>
+                    <val>2017-08-20 12:00:00</val>
+                    <val>2017-08-21 00:00:00</val>
+                    <val>2017-08-21 12:00:00</val>
+                    <val>2017-08-22 00:00:00</val>
+                    <val>2017-08-22 12:00:00</val>
+                    <val>2017-08-23 00:00:00</val>
+                    <val>2017-08-23 12:00:00</val>
+                    <val>2017-08-24 00:00:00</val>
+                    <val>2017-08-24 12:00:00</val>
+                    <val>2017-08-25 00:00:00</val>
+                    <val>2017-08-25 12:00:00</val>
+                    <val>2017-08-26 00:00:00</val>
+                    <val>2017-08-26 12:00:00</val>
+                    <val>2017-08-27 00:00:00</val>
+                    <val>2017-08-27 12:00:00</val>
+                    <val>2017-08-28 00:00:00</val>
+                    <val>2017-08-28 12:00:00</val>
+                    <val>2017-08-29 00:00:00</val>
+                    <val>2017-08-29 12:00:00</val>
+                    <val>2017-08-30 00:00:00</val>
+                    <val>2017-08-30 12:00:00</val>
+                    <val>2017-08-31 00:00:00</val>
+                    <val>2017-08-31 12:00:00</val>
+                    <val>2017-09-01 00:00:00</val>
+                    <val>2017-09-02 00:00:00</val>
+                    <val>2017-09-02 12:00:00</val>
+                    <val>2017-09-03 00:00:00</val>
+                    <val>2017-09-03 12:00:00</val>
+                    <val>2017-09-04 00:00:00</val>
+                    <val>2017-09-04 12:00:00</val>
+                </set>
+            </field>
+        </plot_fix>
+        <rely_event_hist>true</rely_event_hist>
+        <summary_curve/>
+        <tmpl>
+            <data_file>plot_20170912_130424.data</data_file>
+            <plot_file>plot_20170912_130424.png</plot_file>
+            <r_file>plot_20170912_130424.R</r_file>
+            <title/>
+            <x_label>Forecast Probability</x_label>
+            <y1_label>Observed Relative Frequency</y1_label>
+            <y2_label/>
+            <caption/>
+            <listdiffseries1>list()</listdiffseries1>
+            <listdiffseries2>list()</listdiffseries2>
+        </tmpl>
+        <event_equal>false</event_equal>
+        <vert_plot>false</vert_plot>
+        <x_reverse>false</x_reverse>
+        <num_stats>false</num_stats>
+        <indy1_stag>false</indy1_stag>
+        <indy2_stag>false</indy2_stag>
+        <grid_on>true</grid_on>
+        <sync_axes>false</sync_axes>
+        <dump_points1>false</dump_points1>
+        <dump_points2>false</dump_points2>
+        <log_y1>false</log_y1>
+        <log_y2>false</log_y2>
+        <varianceinflationfactor>false</varianceinflationfactor>
+        <plot_type>png16m</plot_type>
+        <plot_height>8.5</plot_height>
+        <plot_width>11</plot_width>
+        <plot_res>72</plot_res>
+        <plot_units>in</plot_units>
+        <mar>c(8,4,5,4)</mar>
+        <mgp>c(1,1,0)</mgp>
+        <cex>1</cex>
+        <title_weight>2</title_weight>
+        <title_size>2.0</title_size>
+        <title_offset>-1</title_offset>
+        <title_align>0.5</title_align>
+        <xtlab_orient>1</xtlab_orient>
+        <xtlab_perp>-0.75</xtlab_perp>
+        <xtlab_horiz>0.5</xtlab_horiz>
+        <xtlab_freq>0</xtlab_freq>
+        <xtlab_size>1.25</xtlab_size>
+        <xlab_weight>1</xlab_weight>
+        <xlab_size>1.5</xlab_size>
+        <xlab_offset>2</xlab_offset>
+        <xlab_align>0.5</xlab_align>
+        <ytlab_orient>1</ytlab_orient>
+        <ytlab_perp>0.5</ytlab_perp>
+        <ytlab_horiz>0.5</ytlab_horiz>
+        <ytlab_size>1.25</ytlab_size>
+        <ylab_weight>1</ylab_weight>
+        <ylab_size>1.5</ylab_size>
+        <ylab_offset>-1.5</ylab_offset>
+        <ylab_align>0.5</ylab_align>
+        <grid_lty>3</grid_lty>
+        <grid_col>#cccccc</grid_col>
+        <grid_lwd>1</grid_lwd>
+        <grid_x>listX</grid_x>
+        <x2tlab_orient>1</x2tlab_orient>
+        <x2tlab_perp>1</x2tlab_perp>
+        <x2tlab_horiz>0.5</x2tlab_horiz>
+        <x2tlab_size>0.8</x2tlab_size>
+        <x2lab_size>0.8</x2lab_size>
+        <x2lab_offset>-0.5</x2lab_offset>
+        <x2lab_align>0.5</x2lab_align>
+        <y2tlab_orient>1</y2tlab_orient>
+        <y2tlab_perp>0.5</y2tlab_perp>
+        <y2tlab_horiz>0.5</y2tlab_horiz>
+        <y2tlab_size>1.25</y2tlab_size>
+        <y2lab_size>1</y2lab_size>
+        <y2lab_offset>1</y2lab_offset>
+        <y2lab_align>0.5</y2lab_align>
+        <legend_box>o</legend_box>
+        <legend_inset>c(0, -.25)</legend_inset>
+        <legend_ncol>2</legend_ncol>
+        <legend_size>0.8</legend_size>
+        <caption_weight>1</caption_weight>
+        <caption_col>#333333</caption_col>
+        <caption_size>0.8</caption_size>
+        <caption_offset>3</caption_offset>
+        <caption_align>0</caption_align>
+        <ci_alpha>0.05</ci_alpha>
+        <plot_ci>c("none","none","none")</plot_ci>
+        <show_signif>c(TRUE,TRUE,TRUE)</show_signif>
+        <plot_disp>c(TRUE,TRUE,TRUE)</plot_disp>
+        <colors>c("#0000ffFF","#ff0000FF","#00bfffFF")</colors>
+        <pch>c(20,20,20)</pch>
+        <type>c("b","b","b")</type>
+        <lty>c(1,1,1)</lty>
+        <lwd>c(3,3,3)</lwd>
+        <con_series>c(1,1,1)</con_series>
+        <order_series>c(1,2,3)</order_series>
+        <plot_cmd/>
+        <legend>c("","","")</legend>
+        <y1_lim>c()</y1_lim>
+        <y1_bufr>0.04</y1_bufr>
+        <y2_lim>c(0,1)</y2_lim>
+        <y2_bufr>0.04</y2_bufr>
+    </plot>
+</plot_spec>

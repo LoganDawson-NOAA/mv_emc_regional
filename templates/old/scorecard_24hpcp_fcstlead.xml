@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>%MV_DATABASE%</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>rds_threshold</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="%MODELX%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_%TIME_PERIOD%_beg">
+        <val name="%VDAY1% 12:00:00"/>
+        <val name="%VDAY2% 12:00:00"/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="GSS" label="ETS"/>
+        <field name="fcst_var">
+          <val name="APCP_24" label="24-h Precip."/>
+          <field name="fcst_thresh">
+            <val name="&gt;0.25" label="&gt; 0.01 in."/>
+            <val name="&gt;6.35" label="&gt; 0.25 in."/>
+            <val name="&gt;12.7" label="&gt; 0.5 in."/>
+            <val name="&gt;25.4" label="&gt; 1.0 in."/>
+            <val name="&gt;50.8" label="&gt; 2.0 in."/>
+            <val name="&gt;76.2" label="&gt; 3.0 in."/>
+            <val name="&gt;101.6" label="&gt; 4.0 in."/>
+          </field>
+        </field> 
+
+        <val name="FBIAS" label="FBIAS"/>
+        <val name="CSI" label="CSI"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="%GGG%" label="%REGION%"/>
+        <field name="fcst_lead">
+          <val name="240000" label="F24"/>
+          <val name="360000" label="F36"/>
+          <val name="480000" label="F48"/>
+          <val name="600000" label="F60"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_%region%_24hpcp_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_%region%_24hpcp_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - 24-h Precipitation</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

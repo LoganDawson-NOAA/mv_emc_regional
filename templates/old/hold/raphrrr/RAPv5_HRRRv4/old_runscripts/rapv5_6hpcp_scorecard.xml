@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_ylin_pcp</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>/meso/save/Logan.Dawson/EMC_meg/Logan_MEG/METviewer_scripts/greenpurple_95-99.xml</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <!--val name="RAPX" label="RAPv5"/-->
+        <val name="RAP" label="RAPv5"/>
+        <val name="RAP" label="RAPv4"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="2019-07-22 12:00:00"/>
+        <val name="2019-08-21 12:00:00"/>
+      </field>
+      <!--field name="init_hour">
+        <val name="00"/>
+      </field-->
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="NBR_FSS" label="FSS"/>
+        <field name="fcst_var">
+          <val name="APCP/06&gt;002.0" label="6-h Precip. &gt; 2 mm"/>
+          <field name="fcst_thresh">
+            <val name="&lt;005" label="&lt; 5 km"/>
+            <val name="&lt;024" label="&lt; 24 km"/>
+            <val name="&lt;052" label="&lt; 52 km"/>
+            <val name="&lt;100" label="&lt; 100 km"/>
+            <val name="&lt;148" label="&lt; 148 km"/>
+          </field>
+          <val name="APCP/06&gt;005.0" label="6-h Precip. &gt; 5 mm"/>
+          <val name="APCP/06&gt;010.0" label="6-h Precip. &gt; 10 mm"/>
+        </field>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="G240/CNS" label="CONUS"/>
+        <field name="fcst_lead">
+          <val name="6" label="F06"/>
+          <val name="12" label="F12"/>
+          <val name="18" label="F18"/>
+          <val name="24" label="F24"/>
+          <val name="30" label="F30"/>
+          <val name="36" label="F36"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>rapv5_vs_rapv4_6hpcp_scorecard.data</data_file>
+      <plot_file>rapv5_vs_rapv4_6hpcp_scorecard.png</plot_file>
+      <title>RAPv5 vs. RAPv4 Scorecard - 6-h Precipitation</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

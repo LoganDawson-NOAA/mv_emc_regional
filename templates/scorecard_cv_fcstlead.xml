@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>%MV_DATABASE%</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>rds_threshold</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="%MODELX%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_%TIME_PERIOD%_beg">
+        <val name="%VDAY1% 12:00:00"/>
+        <val name="%VDAY2% 12:00:00"/>
+      </field>
+      <!--field name="init_hour">
+        <val name="00"/>
+      </field-->
+      <field name="fcst_lev">
+        <val name="L0" label=""/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="CSI" label="CSI"/>
+        <field name="fcst_var">
+          <val name="HGT" label="Ceiling"/>
+          <field name="fcst_thresh">
+            <val name="&lt;152" label="&lt; 500 ft"/>
+            <val name="&lt;305" label="&lt; 1000 ft"/>
+            <val name="&lt;914" label="&lt; 3000 ft"/>
+            <val name="&lt;1520" label="&lt; 5000 ft"/>
+            <val name="&lt;3040" label="&lt; 10000 ft"/>
+          </field>
+        </field>
+        <field name="fcst_var">
+          <val name="VIS" label="Visibility"/>
+          <field name="fcst_thresh">
+            <val name="&lt;805" label="&lt; 0.5 mi"/>
+            <val name="&lt;1609" label="&lt; 1 mi"/>
+            <val name="&lt;4828" label="&lt; 3 mi"/>
+            <val name="&lt;8045" label="&lt; 5 mi"/>
+            <val name="&lt;16090" label="&lt; 10 mi"/>
+          </field>
+        </field>
+
+        <val name="FBIAS" label="FBIAS"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="%GGG%" label="%REGION%"/>
+        <field name="fcst_lead">
+          <val name="30000" label="F03"/>
+          <val name="60000" label="F06"/>
+          <val name="90000" label="F09"/>
+          <val name="120000" label="F12"/>
+          <val name="150000" label="F15"/>
+          <val name="180000" label="F18"/>
+          <val name="210000" label="F21"/>
+          <val name="240000" label="F24"/>
+          <val name="270000" label="F27"/>
+          <val name="300000" label="F30"/>
+          <val name="330000" label="F33"/>
+          <val name="360000" label="F36"/>
+          <val name="390000" label="F39"/>
+          <val name="420000" label="F42"/>
+          <val name="450000" label="F45"/>
+          <val name="480000" label="F48"/>
+          <val name="510000" label="F51"/>
+          <val name="540000" label="F54"/>
+          <val name="570000" label="F57"/>
+          <val name="600000" label="F60"/>
+          <val name="30000,60000,90000,120000,150000,180000,210000,240000,270000,300000,330000,360000,390000,420000,450000,480000,510000,540000,570000,600000" label="Period Summary"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_%region%_cv_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_%region%_cv_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - C &amp; V</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

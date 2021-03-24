@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+    <connection>
+        <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+        <database>mv_emc_g2o_met</database>
+        <user>rds_user</user>
+        <password>rds_pwd</password>
+    </connection>
+
+    <rscript>Rscript</rscript>
+    <folders>
+        <r_tmpl>rds_R_tmpl</r_tmpl>
+        <r_work>rds_R_work</r_work>
+        <plots>rds_plots</plots>
+        <data>rds_data</data>
+        <scripts>rds_scripts</scripts>
+    </folders>
+    <date_list name="vdates">
+        <start>2019-10-10 12:00:00</start>
+        <end>2019-10-29 12:00:00</end>
+        <inc>10800</inc>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+    </date_list>
+
+    <plot name="lead_plot" run="false">
+        <template>series_plot.R_tmpl</template>
+        <series1>
+            <field name="model">
+                <val>HRRR</val>
+                <val>HRRRX</val>
+                <val>RAP</val>
+                <val>RAPX</val>
+            </field>
+        </series1>
+        <series2/>
+        <plot_fix>
+            <field equalize="true" name="fcst_lev">
+                <set name="fcst_lev_0">
+                    <val>Z0</val>
+                </set>
+            </field>
+            <field equalize="true" name="obtype">
+                <set name="obtype_1">
+                    <val>ONLYSF</val>
+                </set>
+            </field>
+            <field equalize="true" name="vx_mask">
+                <set name="vx_mask_2">
+                    <val>G236</val>
+                </set>
+            </field>
+            <field equalize="true" name="fcst_lead">
+                <set name="fcst_lead_3">
+                    <val>390000</val>
+                </set>
+            </field>
+            <field equalize="true" name="fcst_valid_beg">
+                <set name="fcst_valid_beg_4">
+                    <date_list name="vdates"/>
+                </set>
+            </field>
+        </plot_fix>
+        <plot_cond/>
+        <indep equalize="true" name="valid_hour">
+            <val label="00" plot_val="">00</val>
+            <val label="03" plot_val="">03</val>
+            <val label="06" plot_val="">06</val>
+            <val label="09" plot_val="">09</val>
+            <val label="12" plot_val="">12</val>
+            <val label="15" plot_val="">15</val>
+            <val label="18" plot_val="">18</val>
+            <val label="21" plot_val="">21</val>
+        </indep>
+        <agg_stat>
+            <agg_sl1l2>true</agg_sl1l2>
+            <boot_repl>1</boot_repl>
+            <boot_random_seed/>
+            <boot_ci>perc</boot_ci>
+            <eveq_dis>false</eveq_dis>
+            <cache_agg_stat>false</cache_agg_stat>
+        </agg_stat>
+        <plot_stat>median</plot_stat>
+        <tmpl>
+	     <val_map name="fcst_var">
+                 <pair> <key>MSLMA</key> <val>Sea Level Pressure</val> </pair>
+                 <pair> <key>GUST</key> <val>Surface Wind Gust</val> </pair>
+	     </val_map>
+
+
+            <val_map name="stat">
+		<pair> <key>BCRMSE</key> <val>BCRMSE</val> </pair>
+		<pair> <key>ME</key> <val>Bias</val> </pair>
+            </val_map>
+
+            <data_file>rap_hrrr_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}_F39.data</data_file>
+            <plot_file>rap_hrrr_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}_F39.png</plot_file>
+            <r_file>rap_hrrr_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}_F39.R</r_file>
+            <title>CONUS {dep1_1?map=fcst_var} {dep1_1_stat2?map=stat} and {dep1_1_stat1?map=stat}, 39-h Forecasts: 10 Oct 2019 - 29 Oct 2019</title>
+            <x_label>Valid Hour (UTC)</x_label>
+	    <y1_label>{dep1_1?map=fcst_var}</y1_label>
+            <y2_label/>
+            <caption></caption>
+            <listdiffseries1>list()</listdiffseries1>
+            <listdiffseries2>list()</listdiffseries2>
+        </tmpl>
+
+        <event_equal>false</event_equal>
+        <!--event_equal_m>false</event_equal_m-->
+        <vert_plot>false</vert_plot>
+        <x_reverse>false</x_reverse>
+        <num_stats>true</num_stats>
+        <indy1_stag>false</indy1_stag>
+        <indy2_stag>false</indy2_stag>
+        <grid_on>true</grid_on>
+        <sync_axes>false</sync_axes>
+        <dump_points1>false</dump_points1>
+        <dump_points2>false</dump_points2>
+        <log_y1>false</log_y1>
+        <log_y2>false</log_y2>
+        <varianceinflationfactor>false</varianceinflationfactor>
+        <plot_type>png16m</plot_type>
+        <plot_height>8.5</plot_height>
+        <plot_width>11</plot_width>
+        <plot_res>125</plot_res>
+        <plot_units>in</plot_units>
+        <mar>c(8,4,5,4)</mar>
+        <mgp>c(1,1,0)</mgp>
+        <cex>1</cex>
+        <title_weight>2</title_weight>
+        <title_size>1.4</title_size>
+        <title_offset>-2</title_offset>
+        <title_align>0.5</title_align>
+        <xtlab_orient>1</xtlab_orient>
+        <xtlab_perp>-0.75</xtlab_perp>
+        <xtlab_horiz>0.5</xtlab_horiz>
+        <xtlab_freq>0</xtlab_freq>
+        <xtlab_size>1.</xtlab_size>
+        <xlab_weight>1</xlab_weight>
+        <xlab_size>1.25</xlab_size>
+        <xlab_offset>1.5</xlab_offset>
+        <xlab_align>0.5</xlab_align>
+        <ytlab_orient>1</ytlab_orient>
+        <ytlab_perp>0.5</ytlab_perp>
+        <ytlab_horiz>0.5</ytlab_horiz>
+        <ytlab_size>1</ytlab_size>
+        <ylab_weight>1</ylab_weight>
+        <ylab_size>1.25</ylab_size>
+        <ylab_offset>-2</ylab_offset>
+        <ylab_align>0.5</ylab_align>
+        <grid_lty>3</grid_lty>
+        <grid_col>#cccccc</grid_col>
+        <grid_lwd>1</grid_lwd>
+        <grid_x>listX</grid_x>
+        <x2tlab_orient>1</x2tlab_orient>
+        <x2tlab_perp>1</x2tlab_perp>
+        <x2tlab_horiz>0.5</x2tlab_horiz>
+        <x2tlab_size>0.8</x2tlab_size>
+        <x2lab_size>0.8</x2lab_size>
+        <x2lab_offset>-0.5</x2lab_offset>
+        <x2lab_align>0.5</x2lab_align>
+        <y2tlab_orient>1</y2tlab_orient>
+        <y2tlab_perp>0.5</y2tlab_perp>
+        <y2tlab_horiz>0.5</y2tlab_horiz>
+        <y2tlab_size>1.25</y2tlab_size>
+        <y2lab_size>1</y2lab_size>
+        <y2lab_offset>1</y2lab_offset>
+        <y2lab_align>0.5</y2lab_align>       
+        <legend_box>o</legend_box>
+        <legend_inset>c(0, -.25)</legend_inset>
+        <legend_ncol>4</legend_ncol>
+        <legend_size>1.2</legend_size>
+        <caption_weight>1</caption_weight>
+        <caption_col>#333333</caption_col>
+        <caption_size>0.8</caption_size>
+        <caption_offset>5</caption_offset>
+        <caption_align>0</caption_align>
+        <ci_alpha>0.05</ci_alpha>
+        <plot_ci>c("none","none","none","none","none","none","none","none")</plot_ci>
+        <show_signif>c(FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE)</show_signif>
+        <plot_disp>c(TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE)</plot_disp>
+        <colors>c("#00aaffFF","#0000ffFF","#ff0000FF","#800000FF","#00aaffFF","#0000ffFF","#ff0000FF","#800000FF")</colors>
+        <pch>c(17,17,17,17,20,20,20,20)</pch>
+        <type>c("o","o","o","o","o","o","o","o")</type>
+        <lty>c(2,2,2,2,1,1,1,1)</lty>
+        <lwd>c(2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5)</lwd>
+        <con_series>c(1,1,1,1,1,1,1,1)</con_series>
+        <legend>c("HRRR - BCRMSE","HRRRX - BCRMSE"," RAP - BCRMSE","RAPX - BCRMSE","HRRR - Bias","HRRRX - Bias","RAP - Bias"," RAPX - Bias")</legend>
+        <order_series>c(1,2,3,4,5,6,7,8)</order_series>
+        <y1_lim>c()</y1_lim>
+        <y1_bufr>0.04</y1_bufr>
+        <y2_lim>c(0,1)</y2_lim>
+        <y2_bufr>0.04</y2_bufr>
+    </plot>
+
+    <plot name="slp_bias_bcrmse" inherits="lead_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="MSLMA">
+            <stat>BCRMSE</stat>
+            <stat>ME</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>
+      <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
+    </plot>
+
+
+    <plot name="sfcgust_bias_bcrmse" inherits="lead_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="GUST">
+            <stat>BCRMSE</stat>
+            <stat>ME</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>	
+      <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
+    </plot>
+
+
+</plot_spec>
+

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_emc_g2o_met</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>rds_threshold</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="%MODELX%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="%VDAY1% 12:00:00"/>
+        <val name="%VDAY2% 12:00:00"/>
+      </field>
+      <!--field name="init_hour">
+        <val name="00"/>
+      </field-->
+      <field name="obtype">
+        <val name="ONLYSF"/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="ME" label="Bias"/>
+        <field name="fcst_var">
+          <val name="TMP" label="Temperature"/>
+          <field name="fcst_lev">
+            <val name="Z2" label="2-m"/>
+          </field>
+        </field>
+        <field name="fcst_var">
+          <val name="DPT" label="Dewpoint Temperature"/>
+          <field name="fcst_lev">
+            <val name="Z2" label="2-m"/>
+          </field>
+        </field>
+        <!--field name="fcst_var">
+          <val name="UGRD_VGRD" label="Wind Speed"/>
+          <field name="fcst_lev">
+            <val name="Z10" label="10-m"/>
+          </field>
+        </field-->
+        <!--field name="fcst_var">
+          <val name="GUST" label="Wind Gust"/>
+          <field name="fcst_lev">
+            <val name="SFC" label=""/>
+          </field>
+        </field-->
+        <field name="fcst_var">
+          <val name="MSLMA" label="Sea Level Pressure"/>
+          <field name="fcst_lev">
+            <val name="Z0" label=""/>
+          </field>
+        </field>
+
+        <val name="BCRMSE" label="BCRMSE"/>
+      </field>
+
+
+      <field name="stat">
+        <val name="VL1L2_BIAS" label="Bias"/>
+        <field name="fcst_var">
+          <val name="UGRD_VGRD" label="Vector Wind"/>
+          <field name="fcst_lev">
+            <val name="Z10" label="10-m"/>
+          </field>
+        </field>
+
+        <val name="VL1L2_RMSVE" label="RMSVE"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="%GGG%" label="%REGION%"/>
+        <field name="valid_hour">
+          <val name="00" label="00 UTC"/> 
+          <val name="03" label="03 UTC"/>
+          <val name="06" label="06 UTC"/>
+          <val name="09" label="09 UTC"/>
+          <val name="12" label="12 UTC"/>
+          <val name="15" label="15 UTC"/>
+          <val name="18" label="18 UTC"/>
+          <val name="21" label="21 UTC"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>false</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_%region%_sfc_validhour_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_%region%_sfc_validhour_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - Surface</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

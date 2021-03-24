@@ -75,7 +75,7 @@ done
 
 # Change permissions on image files to make visible online
 # This line may error out. Need to determine if it's necessary
-ssh ${RZDM_USER}@emcrzdm.ncep.noaa.gov "chmod 775 ${RZDM_HEAD}/*/${verf_period}/*.png"
+#ssh ${RZDM_USER}@emcrzdm.ncep.noaa.gov "chmod 775 ${RZDM_HEAD}/*/${verf_period}/*.png"
 
 
 # Update date line on webpages

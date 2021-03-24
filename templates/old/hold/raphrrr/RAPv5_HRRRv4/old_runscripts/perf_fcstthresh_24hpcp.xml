@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+    <connection>
+        <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+        <database>mv_ylin_pcp</database>
+        <user>rds_user</user>
+        <password>rds_pwd</password>
+    </connection>
+    
+    <rscript>Rscript</rscript>
+    <folders>
+        <r_tmpl>rds_R_tmpl</r_tmpl>
+        <r_work>rds_R_work</r_work>
+        <plots>rds_plots</plots>
+        <data>rds_data</data>
+        <scripts>rds_scripts</scripts>
+    </folders>
+    <date_list name="vdates">
+        <start>2019-07-22 12:00:00</start>
+        <end>2019-08-21 12:00:00</end>
+        <inc>86400</inc>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+    </date_list>
+
+    <plot name="fcstthresh_plot" run="false">
+        <template>performance.R_tmpl</template>
+        <series1>
+            <field name="model">
+                <val>HRRR</val>
+                <val>HRRRX</val>
+                <val>RAP</val>
+                <val>RAPX</val>
+            </field>
+        </series1>
+        <series2/>
+        <plot_fix>
+            <field equalize="true" name="fcst_var">
+                <set name="fcst_var_0">
+                    <val>APCP/24</val>
+                </set>
+            </field>
+            <field equalize="true" name="vx_mask">
+                <set name="vx_mask_1">
+                    <val>G218/RFC</val>
+                </set>
+            </field>
+            <field equalize="true" name="fcst_lead">
+                <set name="fcst_lead_2">
+                    <val>39</val>
+                </set>
+            </field>
+            <field equalize="true" name="init_hour">
+                <set name="init_hour_3">
+                    <val>21</val>
+                </set>
+            </field>
+            <field equalize="true" name="fcst_valid_beg">
+                <set name="fcst_valid_beg_4">
+                    <date_list name="vdates"/>
+                </set>
+            </field>
+        </plot_fix>
+        <plot_cond/>
+        <indep equalize="true" name="fcst_thresh">
+            <val label="&gt;4.0 in." plot_val="">&gt;4.0</val>
+        </indep>
+        <agg_stat>
+            <agg_ctc>true</agg_ctc>
+            <boot_repl>1</boot_repl>
+            <boot_random_seed/>
+            <boot_ci>perc</boot_ci>
+            <eveq_dis>false</eveq_dis>
+            <cache_agg_stat>false</cache_agg_stat>
+        </agg_stat>
+        <plot_stat>median</plot_stat>
+        <tmpl>
+	     <val_map name="fcst_var">
+                 <pair> <key>APCP/24</key> <val>24-h Precip.</val> </pair>
+	     </val_map>
+
+            <data_file>rap_hrrr_21z_{dep1_1}_fcstthresh_gt4p0_perf_F39.data</data_file>
+            <plot_file>rap_hrrr_21z_{dep1_1}_fcstthresh_gt4p0_perf_F39.png</plot_file>
+            <r_file>rap_hrrr_21z_{dep1_1}_fcstthresh_gt4p0_perf_F39.R</r_file>
+            <title>CONUS {dep1_1?map=fcst_var} > 4 in. Performance Diagram, 21Z Cycles at F39: 22 Jul 2019 - 21 Aug 2019</title>
+            <x_label/>
+	    <y1_label/>
+	    <y2_label/>
+            <caption/>
+            <listdiffseries1>list()</listdiffseries1>
+            <listdiffseries2>list()</listdiffseries2>
+        </tmpl>
+
+        <event_equal>false</event_equal>
+        <!--event_equal_m>false</event_equal_m-->
+        <vert_plot>false</vert_plot>
+        <x_reverse>false</x_reverse>
+        <num_stats>true</num_stats>
+        <indy1_stag>false</indy1_stag>
+        <indy2_stag>false</indy2_stag>
+        <grid_on>true</grid_on>
+        <sync_axes>false</sync_axes>
+        <dump_points1>false</dump_points1>
+        <dump_points2>false</dump_points2>
+        <log_y1>false</log_y1>
+        <log_y2>false</log_y2>
+        <varianceinflationfactor>false</varianceinflationfactor>
+        <plot_type>png16m</plot_type>
+        <plot_height>8.5</plot_height>
+        <plot_width>11</plot_width>
+        <plot_res>125</plot_res>
+        <plot_units>in</plot_units>
+        <mar>c(8,4,5,4)</mar>
+        <mgp>c(1,1,0)</mgp>
+        <cex>1</cex>
+        <title_weight>2</title_weight>
+        <title_size>1.4</title_size>
+        <title_offset>-2</title_offset>
+        <title_align>0.5</title_align>
+        <xtlab_orient>1</xtlab_orient>
+        <xtlab_perp>-0.75</xtlab_perp>
+        <xtlab_horiz>0.5</xtlab_horiz>
+        <xtlab_freq>0</xtlab_freq>
+        <xtlab_size>1.</xtlab_size>
+        <xlab_weight>1</xlab_weight>
+        <xlab_size>1.25</xlab_size>
+        <xlab_offset>1.5</xlab_offset>
+        <xlab_align>0.5</xlab_align>
+        <ytlab_orient>1</ytlab_orient>
+        <ytlab_perp>0.5</ytlab_perp>
+        <ytlab_horiz>0.5</ytlab_horiz>
+        <ytlab_size>1</ytlab_size>
+        <ylab_weight>1</ylab_weight>
+        <ylab_size>1.25</ylab_size>
+        <ylab_offset>-2</ylab_offset>
+        <ylab_align>0.5</ylab_align>
+        <grid_lty>3</grid_lty>
+        <grid_col>#cccccc</grid_col>
+        <grid_lwd>1</grid_lwd>
+        <grid_x>listX</grid_x>
+        <x2tlab_orient>1</x2tlab_orient>
+        <x2tlab_perp>1</x2tlab_perp>
+        <x2tlab_horiz>0.5</x2tlab_horiz>
+        <x2tlab_size>0.8</x2tlab_size>
+        <x2lab_size>0.8</x2lab_size>
+        <x2lab_offset>-0.5</x2lab_offset>
+        <x2lab_align>0.5</x2lab_align>
+        <y2tlab_orient>1</y2tlab_orient>
+        <y2tlab_perp>0.5</y2tlab_perp>
+        <y2tlab_horiz>0.5</y2tlab_horiz>
+        <y2tlab_size>1</y2tlab_size>
+        <y2lab_weight>1</y2lab_weight>
+        <y2lab_size>1.25</y2lab_size>
+        <y2lab_offset>2</y2lab_offset>
+        <y2lab_align>0.5</y2lab_align>       
+        <legend_box>o</legend_box>
+        <legend_inset>c(0, -.25)</legend_inset>
+        <legend_ncol>4</legend_ncol>
+        <legend_size>1.2</legend_size>
+        <caption_weight>1</caption_weight>
+        <caption_col>#333333</caption_col>
+        <caption_size>1.05</caption_size>
+        <caption_offset>2.8</caption_offset>
+        <caption_align>0</caption_align>
+        <ci_alpha>0.05</ci_alpha>
+        <plot_ci>c("none","none","none","none")</plot_ci>
+        <show_signif>c(FALSE,FALSE,FALSE,FALSE)</show_signif>
+        <plot_disp>c(TRUE,TRUE,TRUE,TRUE)</plot_disp>
+        <colors>c("#00aaffFF","#0000ffFF","#ff0000FF","#800000FF")</colors>
+        <pch>c(20,20,20,20)</pch>
+        <type>c("p","p","p","p")</type>
+        <lty>c(1,1,1,1)</lty>
+        <lwd>c(3.5,3.5,3.5,3.5)</lwd>
+        <con_series>c(1,1,1,1)</con_series>
+        <legend>c("HRRR","HRRRX"," RAP","RAPX")</legend>
+        <order_series>c(1,2,3,4)</order_series>
+        <y1_lim>c()</y1_lim>
+        <y1_bufr>0.04</y1_bufr>
+        <y2_lim>c(0,1)</y2_lim>
+        <y2_bufr>0.04</y2_bufr>
+    </plot>
+
+
+</plot_spec>
+

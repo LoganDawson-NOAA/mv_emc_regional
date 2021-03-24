@@ -1,0 +1,71 @@
+<load_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_cam_g2o_test</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+    <management_system>aurora</management_system>
+  </connection>
+
+  <met_version>V8.1</met_version>
+
+  <verbose>true</verbose>
+  <insert_size>1</insert_size>
+  <mode_header_db_check>true</mode_header_db_check>
+  <stat_header_db_check>true</stat_header_db_check>
+  <drop_indexes>false</drop_indexes>
+  <apply_indexes>true</apply_indexes>
+  <load_stat>true</load_stat>
+  <load_mode>true</load_mode>
+  <load_mpr>true</load_mpr>
+  <load_orank>true</load_orank>
+  <force_dup_file>false</force_dup_file>
+  <group>ldawson</group>
+  <description>Backup METplus grid-to-obs verification</description>
+  <load_files>
+    <file>/base_dir/FV3SAR_20191113.stat</file>
+    <file>/base_dir/FV3SAR_20191114.stat</file>
+    <file>/base_dir/FV3SAR_20191115.stat</file>
+    <file>/base_dir/FV3SAR_20191116.stat</file>
+    <file>/base_dir/FV3SAR_20191117.stat</file>
+    <file>/base_dir/FV3SAR_20191118.stat</file>
+    <file>/base_dir/FV3SAR_20191119.stat</file>
+    <file>/base_dir/FV3SAR_20191120.stat</file>
+    <file>/base_dir/FV3SAR_20191121.stat</file>
+    <file>/base_dir/FV3SAR_20191122.stat</file>
+    <file>/base_dir/FV3SAR_20191123.stat</file>
+    <file>/base_dir/FV3SAR_20191124.stat</file>
+    <file>/base_dir/FV3SAR_20191125.stat</file>
+    <file>/base_dir/FV3SAR_20191126.stat</file>
+    <file>/base_dir/FV3SAR_20191127.stat</file>
+    <file>/base_dir/FV3SAR_20191128.stat</file>
+    <file>/base_dir/FV3SAR_20191129.stat</file>
+    <file>/base_dir/FV3SAR_20191130.stat</file>
+    <file>/base_dir/FV3SAR_20191201.stat</file>
+    <file>/base_dir/FV3SAR_20191202.stat</file>
+    <file>/base_dir/FV3SAR_20191203.stat</file>
+    <file>/base_dir/FV3SAR_20191204.stat</file>
+    <file>/base_dir/FV3SAR_20191205.stat</file>
+    <file>/base_dir/FV3SARX_20191113.stat</file>
+    <file>/base_dir/FV3SARX_20191114.stat</file>
+    <file>/base_dir/FV3SARX_20191115.stat</file>
+    <file>/base_dir/FV3SARX_20191116.stat</file>
+    <file>/base_dir/FV3SARX_20191117.stat</file>
+    <file>/base_dir/FV3SARX_20191118.stat</file>
+    <file>/base_dir/FV3SARX_20191119.stat</file>
+    <file>/base_dir/FV3SARX_20191120.stat</file>
+    <file>/base_dir/FV3SARX_20191121.stat</file>
+    <file>/base_dir/FV3SARX_20191122.stat</file>
+    <file>/base_dir/FV3SARX_20191123.stat</file>
+    <file>/base_dir/FV3SARX_20191124.stat</file>
+    <file>/base_dir/FV3SARX_20191125.stat</file>
+    <file>/base_dir/FV3SARX_20191126.stat</file>
+    <file>/base_dir/FV3SARX_20191127.stat</file>
+    <file>/base_dir/FV3SARX_20191128.stat</file>
+    <file>/base_dir/FV3SARX_20191129.stat</file>
+    <file>/base_dir/FV3SARX_20191130.stat</file>
+    <file>/base_dir/FV3SARX_20191201.stat</file>
+    <file>/base_dir/FV3SARX_20191202.stat</file>
+  </load_files>
+
+</load_spec>

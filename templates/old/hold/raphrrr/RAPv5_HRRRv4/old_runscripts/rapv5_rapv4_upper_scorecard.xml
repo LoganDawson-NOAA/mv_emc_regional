@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_emc_g2o_met</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>/meso/save/Logan.Dawson/EMC_meg/Logan_MEG/METviewer_scripts/greenpurple_95-99.xml</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="RAPX" label="RAPv5"/>
+        <val name="RAP" label="RAPv4"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="2019-10-15 12:00:00"/>
+        <val name="2019-10-16 12:00:00"/>
+      </field>
+      <!--field name="init_hour">
+        <val name="00"/>
+      </field-->
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="ME" label="Bias"/>
+        <field name="fcst_var">
+          <val name="HGT" label="Geopotential Height"/>
+          <field name="fcst_lev">
+            <val name="P250" label="250 mb"/>
+            <val name="P500" label="500 mb"/>
+            <val name="P700" label="700 mb"/>
+            <val name="P850" label="850 mb"/>
+          </field>
+        </field> 
+        <field name="fcst_var">
+          <val name="TMP" label="Temperature"/>
+          <field name="fcst_lev">
+            <val name="P250" label="250 mb"/>
+            <val name="P500" label="500 mb"/>
+            <val name="P700" label="700 mb"/>
+            <val name="P850" label="850 mb"/>
+          </field>
+        </field>
+        <field name="fcst_var">
+          <val name="SPFH" label="Specific Humidity"/>
+          <field name="fcst_lev">
+            <val name="P300" label="300 mb"/>
+            <val name="P500" label="500 mb"/>
+            <val name="P700" label="700 mb"/>
+            <val name="P850" label="850 mb"/>
+          </field>
+        </field>
+
+        <val name="BCRMSE" label="BCRMSE"/>
+      </field>
+
+
+      <field name="stat">
+        <val name="VL1L2_BIAS" label="Bias"/>
+        <field name="fcst_var">
+          <val name="UGRD_VGRD" label="Vector Wind"/>
+          <field name="fcst_lev">
+            <val name="P250" label="250 mb"/>
+            <val name="P500" label="500 mb"/>
+            <val name="P700" label="700 mb"/>
+            <val name="P850" label="850 mb"/>
+          </field>
+        </field>
+      </field>
+
+      <field name="stat">
+        <val name="VL1L2_RMSVE" label="RMSE"/>
+        <field name="fcst_var">
+          <val name="UGRD_VGRD" label="Vector Wind"/>
+          <field name="fcst_lev">
+            <val name="P250" label="250 mb"/>
+            <val name="P500" label="500 mb"/>
+            <val name="P700" label="700 mb"/>
+            <val name="P850" label="850 mb"/>
+          </field>
+        </field>
+      </field>
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="G236" label="CONUS"/>
+        <field name="fcst_lead">
+          <val name="0" label="F00"/> 
+          <val name="12" label="F12"/>
+          <val name="24" label="F24"/>
+          <val name="36" label="F36"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>false</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>rapv5_vs_rapv4_upper_scorecard.data</data_file>
+      <plot_file>rapv5_vs_rapv4_upper_scorecard.png</plot_file>
+      <title>RAPv5 vs. RAPv4 Scorecard - Upper Air</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

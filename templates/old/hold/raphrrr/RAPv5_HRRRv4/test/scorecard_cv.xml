@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_emc_g2o_met</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>/meso/save/Logan.Dawson/EMC_meg/Logan_MEG/METviewer_scripts/greenpurple_95-99.xml</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <!--val name="%MODEL%X/%GGG%" label="%MODELX_LABEL%"/-->
+        <val name="HRRR" label="%MODELX_LABEL%"/>
+        <val name="HRRR" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="2019-07-01 12:00:00"/>
+        <val name="2019-07-14 12:00:00"/>
+      </field>
+      <!--field name="init_hour">
+        <val name="00"/>
+      </field-->
+      <field name="fcst_lev">
+        <val name="L0" label=""/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="CSI" label="CSI"/>
+        <field name="fcst_var">
+          <val name="HGT" label="Ceiling"/>
+          <field name="fcst_thresh">
+            <val name="&lt;152" label="&lt; 500 ft"/>
+            <val name="&lt;305" label="&lt; 1000 ft"/>
+            <val name="&lt;914" label="&lt; 3000 ft"/>
+            <!--val name="&ge;914." label="&ge; 3000 ft"/0-->
+          </field>
+        </field>
+        <field name="fcst_var">
+          <val name="VIS" label="Visibility"/>
+          <field name="fcst_thresh">
+            <val name="&lt;1609" label="&lt; 1 mi"/>
+            <val name="&lt;4828" label="&lt; 3 mi"/>
+            <val name="&lt;8045" label="&lt; 5 mi"/>
+            <!--val name="&ge;8045" label="&ge; 5 mi"/-->
+          </field>
+        </field>
+
+        <val name="FBIAS" label="FBIAS"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="FULL" label="CONUS"/>
+        <!--val name="G236" label="CONUS"/-->
+        <field name="fcst_lead">
+          <val name="0" label="F00"/>
+          <val name="3" label="F03"/>
+          <val name="6" label="F06"/>
+          <val name="9" label="F09"/>
+          <val name="12" label="F12"/>
+          <val name="15" label="F15"/>
+          <val name="18" label="F18"/>
+          <val name="21" label="F21"/>
+          <val name="24" label="F24"/>
+          <val name="27" label="F27"/>
+          <val name="30" label="F30"/>
+          <val name="33" label="F33"/>
+          <val name="36" label="F36"/>
+          <val name="39" label="F39"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>false</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>modelx_vs_model_cv_scorecard.data</data_file>
+      <plot_file>modelx_vs_model_cv_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - C and V</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

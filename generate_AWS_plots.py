@@ -1108,7 +1108,10 @@ now = datetime.datetime.utcnow()
 
 
 # Set AWS username
-aws_username = str.lower(os.environ['USER'])
+if os.environ['USER'] == 'Christopher.Macintosh':
+   aws_username = cwmac
+else:
+   aws_username = str.lower(os.environ['USER'])
 
 
 # Option to control whether to actually run METviewer scripts  

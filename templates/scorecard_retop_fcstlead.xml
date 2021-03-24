@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>%MV_DATABASE%</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>rds_threshold</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="%MODELX%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_%TIME_PERIOD%_beg">
+        <val name="%VDAY1% 00:00:00"/>
+        <val name="%VDAY2% 23:00:00"/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="NBR_FSS" label="Fraction Skill Score"/>
+        <field name="fcst_var">
+          <val name="RETOP" label="Echo Top"/>
+          <field name="interp_pnts">
+          <val name="%INT_PTS%"/>
+            <field name="fcst_thresh">
+              <val name=">=20" label="&gt;=20 kft"/>
+              <val name=">=30" label="&gt;=30 kft"/>
+              <val name=">=40" label="&gt;=40 kft"/>
+            </field>
+          </field>
+        </field> 
+        <val name="NBR_CSI" label="CSI"/>
+        <val name="NBR_FBIAS" label="FBIAS"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="%GGG%" label="%REGION%"/>
+        <field name="fcst_lead">
+          <!--val name="0" label="F00"/>
+          <val name="10000" label="F01"/>
+          <val name="20000" label="F02"/-->
+          <val name="30000" label="F03"/>
+          <!--val name="40000" label="F04"/>
+          <val name="50000" label="F05"/-->
+          <val name="60000" label="F06"/>
+          <val name="90000" label="F09"/>
+          <val name="120000" label="F12"/>
+          <val name="150000" label="F15"/>
+          <val name="180000" label="F18"/>
+          <val name="210000" label="F21"/>
+          <val name="240000" label="F24"/>
+          <val name="270000" label="F27"/>
+          <val name="300000" label="F30"/>
+          <val name="330000" label="F33"/>
+          <val name="360000" label="F36"/>
+          <!--val name="390000" label="F39"/>
+          <val name="420000" label="F42"/>
+          <val name="450000" label="F45"/>
+          <val name="480000" label="F48"/>
+          <val name="510000" label="F51"/>
+          <val name="540000" label="F54"/>
+          <val name="570000" label="F57"/>
+          <val name="600000" label="F60"/>
+          <val name="0,10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,150000,180000,210000,240000,270000,300000,330000,360000,390000,420000,450000,480000,510000,540000,570000,600000" label="Period Summary"/-->
+          <val name="10000,20000,30000,40000,50000,60000,70000,80000,90000,100000,110000,120000,130000,140000,150000,160000,170000,180000,190000,200000,210000,220000,230000,240000,250000,260000,270000,280000,290000,300000,310000,320000,330000,340000,350000,360000" label="Period Summary"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>%BOOT_REPL%</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_%region%_retop_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_%region%_retop_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - Echo Top (%NBR% Neigbhorhood)</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_hrrr_refl_test</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>rds_threshold</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <val name="%MODELX%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="%VDAY1% 00:00:00"/>
+        <val name="%VDAY2% 23:00:00"/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="NBR_FSS" label="Fraction Skill Score"/>
+        <field name="fcst_var">
+          <val name="REFC" label="Composite Reflectivity"/>
+          <field name="interp_pnts">
+          <val name="49"/>
+            <field name="fcst_thresh">
+              <val name=">=20" label="&gt;=20 dBZ"/>
+              <val name=">=30" label="&gt;=30 dBZ"/>
+              <val name=">=40" label="&gt;=40 dBZ"/>
+              <val name=">=50" label="&gt;=50 dBZ"/>
+            </field>
+          </field>
+        </field> 
+      </field>
+
+      <field name="stat">
+        <val name="FBIAS" label="Frequency Bias"/>
+        <field name="fcst_var">
+          <val name="REFC" label="Composite Reflectivity"/>
+          <field name="interp_pnts">
+          <val name="1"/>
+            <field name="fcst_thresh">
+              <val name=">=20" label="&gt;=20 dBZ"/>
+              <val name=">=30" label="&gt;=30 dBZ"/>
+              <val name=">=40" label="&gt;=40 dBZ"/>
+              <val name=">=50" label="&gt;=50 dBZ"/>
+            </field>
+          </field>
+        </field>
+        <val name="CSI" label="CSI"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="%GGG%" label="%REGION%"/>
+        <field name="fcst_lead">
+          <val name="0" label="F00"/>
+          <val name="30000" label="F03"/>
+          <val name="60000" label="F06"/>
+          <val name="90000" label="F09"/>
+          <val name="120000" label="F12"/>
+          <val name="150000" label="F15"/>
+          <val name="180000" label="F18"/>
+          <val name="210000" label="F21"/>
+          <val name="240000" label="F24"/>
+          <val name="270000" label="F27"/>
+          <val name="300000" label="F30"/>
+          <val name="330000" label="F33"/>
+          <val name="360000" label="F36"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_%region%_refc_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_%region%_refc_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - Composite Reflectivity</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+

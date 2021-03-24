@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<plot_spec>
+  <connection>
+    <host>metviewer-dev-cluster.cluster-czbts4gd2wm2.us-east-1.rds.amazonaws.com:3306</host>
+    <database>mv_ylin_pcp</database>
+    <user>rds_user</user>
+    <password>rds_pwd</password>
+  </connection>
+
+  <rscript>Rscript</rscript>
+  <folders>
+    <r_tmpl>rds_R_tmpl</r_tmpl>
+    <r_work>rds_R_work</r_work>
+    <plots>rds_plots</plots>
+    <data>rds_data</data>
+    <scripts>rds_scripts</scripts>
+  </folders>
+  <plot>
+    <view_value>true</view_value>
+    <view_symbol>true</view_symbol>
+    <view_legend>true</view_legend>
+    <printSQL>true</printSQL>
+    <stat_flag>NCAR</stat_flag>
+    <!-- stat_flag>EMC</stat_flag -->
+    <stat_value>DIFF</stat_value>
+    <stat_symbol>DIFF_SIG</stat_symbol>
+    <threshold_file>/meso/save/Logan.Dawson/EMC_meg/Logan_MEG/METviewer_scripts/greenpurple_95-99.xml</threshold_file>
+    <template>scorecard.R_tmpl</template>
+    <plot_fix>
+      <field name="model">
+        <!--val name="%MODEL%X" label="%MODELX_LABEL%"/-->
+        <val name="%MODEL%" label="%MODELX_LABEL%"/>
+        <val name="%MODEL%" label="%MODEL_LABEL%"/>
+      </field>
+      <field name="fcst_valid_beg">
+        <val name="%VDAY1% 12:00:00"/>
+        <val name="%VDAY2% 12:00:00"/>
+      </field>
+    </plot_fix>
+
+    <rows>
+      <field name="stat">
+        <val name="GSS" label="ETS"/>
+        <field name="fcst_var">
+          <val name="APCP/24" label="24-h Precip."/>
+          <field name="fcst_thresh">
+            <val name="&gt;.01" label="&gt; .01 in."/>
+            <val name="&gt;.10" label="&gt; .10 in."/>
+            <val name="&gt;.25" label="&gt; .25 in."/>
+            <val name="&gt;.50" label="&gt; .50 in."/>
+            <val name="&gt;.75" label="&gt; .75 in."/>
+            <val name="&gt;1.0" label="&gt; 1.0 in."/>
+            <val name="&gt;1.5" label="&gt; 1.5 in."/>
+            <val name="&gt;2.0" label="&gt; 2.0 in."/>
+            <val name="&gt;3.0" label="&gt; 3.0 in."/>
+            <val name="&gt;4.0" label="&gt; 4.0 in."/>
+          </field>
+        </field> 
+
+        <val name="FBIAS" label="FBIAS"/>
+      </field>
+
+
+    </rows>
+    <columns>
+      <field name="vx_mask">
+        <val name="G218/RFC" label="CONUS"/>
+        <field name="fcst_lead">
+          <val name="24" label="F24"/>
+          <val name="27" label="F27"/>
+          <val name="30" label="F30"/>
+          <val name="33" label="F33"/>
+          <val name="36" label="F36"/>
+          <val name="39" label="F39"/>
+        </field>
+      </field>
+
+    </columns>
+    <agg_stat>true</agg_stat>
+    <boot_repl>1000</boot_repl>
+    <boot_random_seed>1</boot_random_seed>
+    <tmpl>
+      <data_file>%modelx%_vs_%model%_conus_24hpcp_scorecard.data</data_file>
+      <plot_file>%modelx%_vs_%model%_conus_24hpcp_scorecard.png</plot_file>
+      <title>%MODELX_LABEL% vs. %MODEL_LABEL% Scorecard - 24-h Precipitation</title>
+    </tmpl>
+  </plot>
+</plot_spec>
+
