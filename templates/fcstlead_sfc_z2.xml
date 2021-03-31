@@ -82,12 +82,13 @@
 		<pair> <key>ME</key> <val>Bias</val> </pair>
             </val_map>
 
-            <data_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}.data</data_file>
-            <plot_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}.png</plot_file>
-            <r_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}_{dep1_1_stat2?map=stat}.R</r_file>
-            <title>%REGION% {dep1_1?map=fcst_var} {dep1_1_stat2?map=stat} and {dep1_1_stat1?map=stat}, %CC%Z Cycles: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
+            <data_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}.data</data_file>
+            <plot_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}.png</plot_file>
+            <r_file>%VERF_JOB%_%region%_%CC%z_sfc_{dep1_1}_{dep1_1_stat1?map=stat}.R</r_file>
+            <title>%REGION% {dep1_1?map=fcst_var} {dep1_1_stat1?map=stat}, %CC%Z Cycles: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
             <x_label>Forecast Lead</x_label>
-	    <y1_label>{dep1_1?map=fcst_var}</y1_label>
+	    <!--y1_label>{dep1_1?map=fcst_var}</y1_label-->
+	    <y1_label>{dep1_1_stat1?map=stat}</y1_label>
             <y2_label/>
             <caption></caption>
             <listdiffseries1>list()</listdiffseries1>
@@ -165,28 +166,38 @@
         <caption_offset>5</caption_offset>
         <caption_align>0</caption_align>
         <ci_alpha>0.05</ci_alpha>
-        <plot_ci>%CI_LIST2%</plot_ci>
-        <show_signif>%SIGNIF_LIST2%</show_signif>
-        <plot_disp>%DISP_LIST2%</plot_disp>
-        <colors>%COLORS_LIST2%</colors>
-        <pch>%PCH_LIST2%</pch>
-        <type>%TYPE_LIST2%</type>
-        <lty>%LTY_LIST2%</lty>
-        <lwd>%LWD_LIST2%</lwd>
-        <con_series>%CON_LIST2%</con_series>
-        <order_series>%ORDER_LIST2%</order_series>
-        <legend>%LEGEND_LIST2%</legend>
+        <plot_ci>%CI_LIST%</plot_ci>
+        <show_signif>%SIGNIF_LIST%</show_signif>
+        <plot_disp>%DISP_LIST%</plot_disp>
+        <colors>%COLORS_LIST%</colors>
+        <pch>%PCH_LIST%</pch>
+        <type>%TYPE_LIST%</type>
+        <lty>%LTY_LIST%</lty>
+        <lwd>%LWD_LIST%</lwd>
+        <con_series>%CON_LIST%</con_series>
+        <order_series>%ORDER_LIST%</order_series>
+        <legend>%LEGEND_LIST%</legend>
         <y1_lim>c()</y1_lim>
         <y1_bufr>0.04</y1_bufr>
         <y2_lim>c(0,1)</y2_lim>
         <y2_bufr>0.04</y2_bufr>
     </plot>
 
-    <plot name="t2_bias_bcrmse" inherits="lead_plot">
+    <plot name="t2_bcrmse" inherits="lead_plot">
       <dep>
         <dep1>
           <fcst_var name="TMP">
               <stat>BCRMSE</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>
+    </plot>
+
+    <plot name="t2_bias" inherits="lead_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="TMP">
               <stat>ME</stat>
           </fcst_var>
         </dep1>
@@ -195,11 +206,21 @@
       <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
     </plot>
 
-    <plot name="td2_bias_bcrmse" inherits="lead_plot">
+    <plot name="td2_bcrmse" inherits="lead_plot">
       <dep>
         <dep1>
           <fcst_var name="DPT">
               <stat>BCRMSE</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>
+    </plot>
+
+    <plot name="td2_bias" inherits="lead_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="DPT">
               <stat>ME</stat>
           </fcst_var>
         </dep1>
