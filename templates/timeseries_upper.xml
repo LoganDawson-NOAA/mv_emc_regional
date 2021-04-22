@@ -24,34 +24,29 @@
         </series1>
         <series2/>
         <plot_fix>
-            <field equalize="false" name="vx_mask">
-                <set name="vx_mask_0">
-                    <val>%GGG%</val>
-                </set>
-            </field>
             <field equalize="true" name="fcst_lev">
-                <set name="fcst_lev_1">
-                    <val>L0</val>
+                <set name="fcst_lev_0">
+                    <val>P%PPP%</val>
                 </set>
             </field>
             <field equalize="true" name="obtype">
-                <set name="obtype_2">
-                    <val>ONLYSF</val>
+                <set name="obtype_1">
+                    <val>ADPUPA</val>
                 </set>
             </field>
-            <field equalize="true" name="fcst_thresh">
-                <set name="fcst_thresh_3">
-                    <val>&lt;%THRESH%</val>
+            <field equalize="false" name="vx_mask">
+                <set name="vx_mask_2">
+                    <val>%GGG%</val>
                 </set>
             </field>
             <field equalize="true" name="fcst_lead">
-                <set name="fcst_lead_4">
+                <set name="fcst_lead_3">
                     <val>%F%</val>
                 </set>
             </field>
         </plot_fix>
         <plot_cond/>
-        <indep name="fcst_init_beg">
+        <indep name="fcst_%TIME_PERIOD%_beg">
             <date_list>
                 <start>%VDAY1% 00:00:00</start>
                 <end>%VDAY2% 00:00:00</end>
@@ -61,7 +56,7 @@
             </date_list>
         </indep>
         <agg_stat>
-            <agg_ctc>true</agg_ctc>
+            <agg_sl1l2>true</agg_sl1l2>
             <boot_repl>1</boot_repl>
             <boot_random_seed/>
             <boot_ci>perc</boot_ci>
@@ -70,21 +65,22 @@
         </agg_stat>
         <plot_stat>median</plot_stat>
         <tmpl>
-             <val_map name="fcst_var">
-                 <pair> <key>HGT</key> <val>Ceiling</val> </pair>
-             </val_map>
+	     <val_map name="fcst_var">
+                 <pair> <key>TMP</key> <val>%PPP% mb Temperature</val> </pair>
+                 <pair> <key>HGT</key> <val>%PPP% mb Geopotential Height</val> </pair>
+	     </val_map>
 
 
             <val_map name="stat">
-                <pair> <key>CSI</key> <val>CSI</val> </pair>
-                <pair> <key>FBIAS</key> <val>FBIAS</val> </pair>
+		<pair> <key>BCRMSE</key> <val>BCRMSE</val> </pair>
+		<pair> <key>ME</key> <val>Bias</val> </pair>
             </val_map>
 
-            <data_file>%VERF_JOB%_%region%_{dep1_1}_lt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.data</data_file>
-            <plot_file>%VERF_JOB%_%region%_{dep1_1}_lt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.png</plot_file>
-            <r_file>%VERF_JOB%_%region%_{dep1_1}_lt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.R</r_file>
-            <title>%REGION% {dep1_1?map=fcst_var} &lt; %THRESH2% ft {dep1_1_stat1?map=stat}, %FF%-h Forecasts: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
-            <x_label>Initialization Date</x_label>
+            <data_file>%VERF_JOB%_%region%_%PPP%mb_{dep1_1}_{dep1_1_stat1?map=stat}_F%FF%.data</data_file>
+            <plot_file>%VERF_JOB%_%region%_%PPP%mb_{dep1_1}_{dep1_1_stat1?map=stat}_F%FF%.png</plot_file>
+            <r_file>%VERF_JOB%_%region%_%PPP%mb_{dep1_1}_{dep1_1_stat1?map=stat}_F%FF%.R</r_file>
+            <title>%REGION% {dep1_1?map=fcst_var} {dep1_1_stat1?map=stat}, %FF%-h Forecasts: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
+            <x_label>%TIME_PERIOD% Date</x_label>
 	    <y1_label>{dep1_1_stat1?map=stat}</y1_label>
             <y2_label/>
             <caption></caption>
@@ -181,27 +177,51 @@
     </plot>
 
 
-    <plot name="ceiling_csi" inherits="init_plot">
+    <plot name="tmp_bias" inherits="init_plot">
       <dep>
         <dep1>
-          <fcst_var name="HGT">
-            <stat>CSI</stat>
+          <fcst_var name="TMP">
+            <stat>ME</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>
+      <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
+    </plot>
+
+    <plot name="tmp_rmse" inherits="init_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="TMP">
+            <stat>BCRMSE</stat>
           </fcst_var>
         </dep1>
         <dep2/>
       </dep>
     </plot>
 
-    <plot name="ceiling_fbias" inherits="init_plot">
+
+    <plot name="hgt_bias" inherits="init_plot">
       <dep>
         <dep1>
           <fcst_var name="HGT">
-            <stat>FBIAS</stat>
+            <stat>ME</stat>
           </fcst_var>
         </dep1>
         <dep2/>
       </dep>
-      <plot_cmd>abline(h=1, lty=1, lwd=4, col="#000000FF");</plot_cmd>
+      <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
+    </plot>
+
+    <plot name="hgt_rmse" inherits="init_plot">
+      <dep>
+        <dep1>
+          <fcst_var name="HGT">
+            <stat>BCRMSE</stat>
+          </fcst_var>
+        </dep1>
+        <dep2/>
+      </dep>
     </plot>
 
 

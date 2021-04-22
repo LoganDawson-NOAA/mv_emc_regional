@@ -73,7 +73,7 @@
                  <pair> <key>TMP</key> <val>%PPP% mb Temperature</val> </pair>
                  <pair> <key>HGT</key> <val>%PPP% mb Geopotential Height</val> </pair>
                  <pair> <key>SPFH</key> <val>%PPP% mb Specific Humidity</val> </pair>
-                 <pair> <key>RH</key> <val>%PPP% mb Relative Humidity</val> </pair>
+                 <!--pair> <key>RH</key> <val>%PPP% mb Relative Humidity</val> </pair-->
 	     </val_map>
 
 
@@ -209,7 +209,7 @@
     </plot>
 
 
-    <plot name="%PPP%mb_rh_bias_bcrmse" inherits="lead_plot">
+    <!--plot name="%PPP%mb_rh_bias_bcrmse" inherits="lead_plot">
       <dep>
         <dep1>
           <fcst_var name="RH">
@@ -220,7 +220,7 @@
         <dep2/>
       </dep>
       <plot_cmd>abline(h=0, lty=1, lwd=4, col="#000000FF");</plot_cmd>
-    </plot>
+    </plot-->
 
 
     <plot name="%PPP%mb_hgt_bias_bcrmse" inherits="lead_plot">

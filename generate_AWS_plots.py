@@ -167,7 +167,7 @@ def update_xml(jobtype,plottype,template_xml,updated_xml):
             elif cycle%12 == 6:
                 leads = np.arange(6,runlength+1,12) 
 
-        elif plottype == 'cape': 
+        elif plottype[0:4] == 'cape': 
             leads = np.arange(0,runlength+1,6) 
 
         elif plottype[0:5] == 'radar':
@@ -1159,7 +1159,13 @@ if str.upper(verf_job) == 'FV3CAM':
 
     # Initial date for current LAM-DA experiment
     elif str.lower(verf_exp) == 'da_exp' and str.lower(verf_period) == 'exp_period':
+        vday1 = datetime.datetime(2020,12,19,0,0)
+        time_period = 'init'
+
+    # Start/end dates for fall 2020 LAM-DA (only) experiment
+    elif str.lower(verf_exp) == 'da_exp' and str.lower(verf_period) == 'da_only_exp':
         vday1 = datetime.datetime(2020,9,2,12,0)
+        exp_vday2 = datetime.datetime(2020,12,18,12,0)
         time_period = 'init'
 
     # Start/end dates for spring/summer 2020 SAR-DA experiment
@@ -1415,7 +1421,7 @@ if str.upper(verf_job) == 'CAM':
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = False
+    doTimeSeries  = False
 
     event_eq = 'false'
     boot_repl = 1
@@ -1485,7 +1491,7 @@ elif str.upper(verf_job) == 'MESO':
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = False
+    doTimeSeries  = False
 
     event_eq = 'false'
     boot_repl = 1
@@ -1554,13 +1560,13 @@ elif str.upper(verf_job) == 'FV3CAM' and str.lower(verf_exp) == 'para_exp':
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = False
+    doTimeSeries  = False
 
     event_eq = 'false'
     boot_repl = 1000
 
     cycles = np.arange(0,13,12)
-    fhrs = np.arange(0,61,6)
+    fhrs = np.arange(0,61,12)
     if event_eq == 'false':
         runlength = 60
     elif event_eq == 'true':
@@ -1639,13 +1645,13 @@ elif (str.upper(verf_job) == 'FV3CAM' and str.lower(verf_exp) == 'da_exp'):
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = True
+    doTimeSeries  = True
 
     event_eq    = 'true'
     boot_repl   = 1000
 
     cycles = np.arange(0,13,12)
-    fhrs = np.arange(0,61,6)
+    fhrs = np.arange(0,61,12)
     runlength = 60
 
     prods = ['FV3LAM','FV3LAMDA']
@@ -1715,13 +1721,20 @@ elif (str.upper(verf_job) == 'FV3CAM' and
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = True
+    doTimeSeries  = True
 
+    doScorecard   = False
+    doPerformance = False
+    doReliability = False
+    doFcstThresh  = False
+    doValidHour   = False
+    doFcstLead    = True
+    doTimeSeries  = False
     event_eq    = 'true'
     boot_repl   = 1000
 
     cycles = np.arange(0,13,12)
-    fhrs = np.arange(0,61,6)
+    fhrs = np.arange(0,61,12)
     runlength = 60
 
     # Settings specific to SAR-X experiment
@@ -1804,7 +1817,7 @@ elif (str.upper(verf_job) == 'FV3CAM' and
     colors_list4 = 'c(\"'+lam['color']+'\",\"'+lamx['color']+'\",\"'+gfs['color']+'\",\"'+gfs['color']+'\")'
     pch_list4    = 'c(20,20,20,20)'
     type_list4   = 'c(\"l\",\"l\",\"o\",\"o\")'
-    lty_list4    = 'c('+lam['lty']+','+lamx['lty']+','+lamda['lty']+','+lamda['lty']+',)'
+    lty_list4    = 'c('+lam['lty']+','+lamx['lty']+','+lamda['lty']+','+lamda['lty']+')'
     lwd_list4    = 'c(2.5,2.5,2.5,2.5)'
     con_list4    = 'c(1,1,1,1)'
     order_list4  = 'c(1,2,3,4)'
@@ -1820,7 +1833,7 @@ elif str.upper(verf_job) == 'HREF_MEM':
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = False
+    doTimeSeries  = False
 
     event_eq    = 'false'
     boot_repl   = 1000
@@ -1892,7 +1905,7 @@ elif str.upper(verf_job) == 'HREFV3':
     doFcstThresh  = True
     doValidHour   = True
     doFcstLead    = True
-    doInitDate    = False
+    doTimeSeries  = False
 
     event_eq    = 'true'
     boot_repl   = 1000
@@ -2079,7 +2092,8 @@ except:
 
 
 # Define thresholds, levels, etc. for series plots and performance diagrams
-plevs = [250,500,700,850,925]
+plevs = [250,500,850]
+#plevs = [250,500,700,850,925]
 #if str.upper(verf_job) != 'HREFV3':
 #    plevs.extend([50,100,200,300,1000])
 
@@ -2160,7 +2174,7 @@ if doScorecard:
         doFcstThresh  = False
         doValidHour   = False
         doFcstLead    = False
-        doInitDate    = False
+        doTimeSeries  = False
 
 
     # Set up prod/para pairs for scorecards
@@ -2403,6 +2417,7 @@ if doPerformance:
                 update_xml('batch',plot[1],template_xml, updated_xml)
                 run_metviewer('performance', updated_xml)
 
+                '''
                 # Use METviewer data file to reproduce performance diagram w/ python
                 plot_files = os.listdir(PLOT_DIR)
 
@@ -2422,6 +2437,7 @@ if doPerformance:
                     for data_file in data_files:
                         os.remove(data_file)
                   # os.remove(filename+'.data')
+                '''
 
 
 
@@ -2525,6 +2541,7 @@ if doReliability:
                 run_metviewer('reliability', updated_xml)
 
 
+                '''
                 # Use METviewer data file to reproduce reliability diagram w/ python
                 plot_files = os.listdir(PLOT_DIR)
 
@@ -2540,6 +2557,7 @@ if doReliability:
                     reliability_diag(filename,plot[1])
                     os.remove('*.data')
                   # os.remove(filename+'.data')
+                '''
                
 
 
@@ -2738,7 +2756,8 @@ if doValidHour:
     if str.upper(verf_job) != 'FV3CAM':
         regions.extend(['Alaska','NAK','SAK'])
     if str.upper(verf_job) != 'MESO':
-        regions.extend(['SPC'])
+      # regions.extend(['SPC'])
+        pass
 
     for region in regions:
 
@@ -2760,13 +2779,16 @@ if doValidHour:
 
             # Plots for deterministics over CONUS/East/West
             else:
-                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','3hpcp','ceiling','vis']
+              # plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','3hpcp_sl1l2','ceiling','vis']
+                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10']
                 if str.lower(region) in upper_air_regions:
                     plottypes2.extend(['upper','upperwind'])
                 if str.lower(region) in cape_regions:
-                    plottypes2.extend(['cape'])
+                  # plottypes2.extend(['cape'])
+                    pass
                 if str.lower(region) in radar_regions and str.upper(verf_job) != 'MESO':
-                    plottypes2.extend(['radar_nbrcnt','radar_nbrctc'])
+                  # plottypes2.extend(['radar_nbrcnt','radar_nbrctc'])
+                    pass
 
         # Plots for Alaska
         elif str.lower(region) in alaska_regions:
@@ -2774,7 +2796,8 @@ if doValidHour:
             if str.upper(verf_job) == 'HREFV3':
                 plottypes2 = ['sfc_z0','sfc_z2','sfc_sl1l2_z10','upper','upperwind','ceiling','vis']
             else:
-                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','ceiling','vis']
+              # plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','ceiling','vis']
+                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10']
                 if str.lower(region) in upper_air_regions:
                     plottypes2.extend(['upper','upperwind'])
 
@@ -2963,7 +2986,7 @@ if doValidHour:
                 run_metviewer('batch', updated_xml)
 
             # 3-h FSS plots
-            elif plot[1][0:12] == '3hpcp_nbrcnt':
+            elif plot[1] == '3hpcp_nbrcnt':
                 interp_pnts = pcp3h_interp_pnts 
                 nbrhd = pcp3h_nbrhd 
 
@@ -2975,7 +2998,7 @@ if doValidHour:
                     run_metviewer('batch', updated_xml)
 
             # Diurnal precip plots
-            elif plot[1][0:5] == '3hpcp':
+            elif plot[1] == '3hpcp_sl1l2':
                 outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_'+str.lower(region)+'.out'
                 update_xml('batch',plot[1],template_xml, updated_xml)
                 run_metviewer('batch', updated_xml)
@@ -3033,13 +3056,16 @@ if doFcstLead:
 
             # Plots for deterministics over CONUS/East/West
             else:
-                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','3hpcp','ceiling','vis']
+              # plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','3hpcp_sl1l2','ceiling','vis']
+                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','3hpcp_sl1l2']
                 if str.lower(region) in upper_air_regions:
                     plottypes2.extend(['upper','upperwind'])
                 if str.lower(region) in cape_regions:
-                    plottypes2.extend(['cape'])
+                  # plottypes2.extend(['cape'])
+                    plottypes2.extend(['cape_sl1l2'])
                 if str.lower(region) in radar_regions and str.upper(verf_job) != 'MESO':
-                    plottypes2.extend(['radar_nbrcnt','radar_nbrctc'])
+                  # plottypes2.extend(['radar_nbrcnt','radar_nbrctc'])
+                    plottypes2.extend(['radar_nbrcnt'])
 
 
         # Plots for Alaska
@@ -3048,7 +3074,8 @@ if doFcstLead:
             if str.upper(verf_job) == 'HREFV3':
                 plottypes2 = ['sfc_z0','sfc_z2','sfc_sl1l2_z10','upper','upperwind','ceiling','vis']
             else:
-                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','ceiling','vis']
+              # plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','ceiling','vis']
+                plottypes2 = ['sfc_z0','sfc_z2','sfc_z10']
                 if str.lower(region) in upper_air_regions:
                     plottypes2.extend(['upper','upperwind'])
 
@@ -3056,7 +3083,8 @@ if doFcstLead:
         # Plots for SPC outlook areas
         elif str.lower(region) in spc_regions:
             domain_key = 'conus'
-            plottypes2 = ['radar_nbrcnt','radar_nbrctc']
+          # plottypes2 = ['radar_nbrcnt','radar_nbrctc']
+            plottypes2 = ['radar_nbrcnt']
             if str.upper(verf_job) == 'HREFV3':
                 plottypes2.extend(['radar_pct'])
 
@@ -3241,7 +3269,7 @@ if doFcstLead:
                     run_metviewer('batch', updated_xml)
 
                 # 3-h FSS plots
-                elif plot[1][0:12] == '3hpcp_nbrcnt':
+                elif plot[1] == '3hpcp_nbrcnt':
                     interp_pnts = pcp3h_interp_pnts 
                     nbrhd = pcp3h_nbrhd 
 
@@ -3252,8 +3280,8 @@ if doFcstLead:
                         update_xml('batch',plot[1],template_xml, updated_xml)
                         run_metviewer('batch', updated_xml)
 
-                # Diurnal precip plots
-                elif plot[1][0:5] == '3hpcp':
+                # Diurnal FBAR/OBAR plots
+                elif plot[1] == '3hpcp_sl1l2' or plot[1] == 'cape_sl1l2':
 
                     outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_'+str(cycle).zfill(2)+'z_'+str.lower(region)+'.out'
                     update_xml('batch',plot[1],template_xml, updated_xml)
@@ -3273,30 +3301,39 @@ if doFcstLead:
 
 
 
-#################################### Initialization Date Section  #####################################################
+#################################### Time Series Section  #####################################################
 
 
-if doInitDate:
+if doTimeSeries:
 
     t1a = time.time()
 
-    plottypes = ['initdate']
+    plottypes = ['timeseries']
+
+    # Make these time series just over the past 32 days
+    # Unless we're doing an individual month already
+    # Use original vday1 if already doing a monthly period
+    if verf_period[0:3].capitalize() not in months:
+        vday1 = now + datetime.timedelta(days=-32)    # for doing a past 32 days
+
 
     # Loop through regions to generate initialization date series plots
     regions = ['CONUS']
 
     for region in regions:
 
+        print('\n Working on '+region+' time series plots \n')
+
         # Set domain_key so appropriate model name can be used
         # Define list of plots to make for each region 
         if str.lower(region) in conus_regions:
             domain_key = 'conus'
-            plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','upper','upperwind']
+            plottypes2 = ['sfc_z2','sfc_z10','upper','upperwind']
 
         # Plots for Alaska
         elif str.lower(region) in alaska_regions:
             domain_key = 'alaska'
-            plottypes2 = ['sfc_z0','sfc_z2','sfc_z10','upper','upperwind']
+            plottypes2 = ['sfc_z2','sfc_z10','upper','upperwind']
 
 
         # Generate list of plotting jobs to run
@@ -3314,44 +3351,28 @@ if doInitDate:
             updated_xml = SCRIPT_DIR+'/series_'+plot[0]+'_'+plot[1]+'.xml'
 
 
-            # Loop through ceiling thresholds
-            if plot[1] == 'ceiling': 
-                for fhr in fhrs:
-                    for j in range(len(ceil_thresholds)):
-                        thresh = ceil_thresholds[j]
-                        imperial_thresh = us_ceil_thresholds[j]
-
-                        outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str(thresh)+'_'+str.lower(region)+'.out'
-                        update_xml('batch',plot[1],template_xml, updated_xml)
-                        run_metviewer('batch', updated_xml)
-
-            # Loop through visibility thresholds
-            elif plot[1] == 'vis':
-                for fhr in fhrs:
-                    for j in range(len(vis_thresholds)):
-                        thresh = vis_thresholds[j]
-                        imperial_thresh = us_vis_thresholds[j]
-
-                        outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str(thresh)+'_'+str.lower(region)+'.out'
-                        update_xml('batch',plot[1],template_xml, updated_xml)
-                        run_metviewer('batch', updated_xml)
-
-            # Loop through CAPE thresholds
-            elif plot[1] == 'cape':
-                for fhr in fhrs:
-                    for thresh in cape_thresholds:
-
-                        if region == 'CONUS':
-                            outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str(thresh)+'_'+str.lower(region)+'.out'
-                            update_xml('batch',plot[1],template_xml, updated_xml)
-                            run_metviewer('batch', updated_xml)
-
             # Sfc plots
-            elif plot[1][0:3] == 'sfc':
+            if plot[1][0:3] == 'sfc':
                 for fhr in fhrs:
                     outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str.lower(region)+'.out'
                     update_xml('batch',plot[1],template_xml, updated_xml)
                     run_metviewer('batch', updated_xml)
+
+            # Upper TMP/HGT plots
+            elif plot[1] == 'upper':
+                for fhr in fhrs:
+                    for plev in np.arange(500,851,350):
+                        outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str.lower(region)+'.out'
+                        update_xml('batch',plot[1],template_xml, updated_xml)
+                        run_metviewer('batch', updated_xml)
+
+            # Upper wind plots
+            elif plot[1] == 'upperwind':
+                for fhr in fhrs:
+                    for plev in np.arange(250,500,250):
+                        outfile = OUTPUT_DIR+'/series_'+plot[0]+'_'+plot[1]+'_f'+str(fhr).zfill(2)+'_'+str.lower(region)+'.out'
+                        update_xml('batch',plot[1],template_xml, updated_xml)
+                        run_metviewer('batch', updated_xml)
 
             else:
                 print("plot_type "+plot[1]+" is not set up")

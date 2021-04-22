@@ -15,8 +15,14 @@
         <data>rds_data</data>
         <scripts>rds_scripts</scripts>
     </folders>
+    <date_list name="vdates">
+        <start>%VDAY1% 00:00:00</start>
+        <end>%VDAY2% 21:00:00</end>
+        <inc>21600</inc>
+        <format>yyyy-MM-dd HH:mm:ss</format>
+    </date_list>
 
-    <plot name="init_plot" run="false">
+    <plot name="lead_plot" run="false">
         <template>series_plot.R_tmpl</template>
         <series1>
             <field name="model">
@@ -29,61 +35,59 @@
                     <val>%GGG%</val>
                 </set>
             </field>
-            <field equalize="true" name="fcst_thresh">
-                <set name="fcst_thresh_1">
-                    <val>&gt;%THRESH%</val>
+            <field equalize="true" name="init_hour">
+                <set name="init_hour_1">
+                    <val>%CC%</val>
                 </set>
             </field>
-            <field equalize="true" name="fcst_lead">
-                <set name="fcst_lead_2">
-                    <val>%F%</val>
+            <!--field equalize="true" name="interp_pnts">
+                                 <set name="interp_pnts_3">
+                    <val>49</val>
+                </set>
+            </field-->
+            <field equalize="true" name="fcst_%TIME_PERIOD%_beg">
+                <set name="fcst_%TIME_PERIOD%_beg_2">
+                    <date_list name="vdates"/>
                 </set>
             </field>
         </plot_fix>
         <plot_cond/>
-        <indep name="fcst_init_beg">
-            <date_list>
-                <start>%VDAY1% 00:00:00</start>
-                <end>%VDAY2% 00:00:00</end>
-               <inc>43200</inc>
-                <format>yyyy-MM-dd HH:mm:ss</format>
-                <label_format>HHz MM/dd</label_format>
-            </date_list>
+        <indep equalize="true" name="fcst_lead">
         </indep>
         <agg_stat>
-            <agg_ctc>true</agg_ctc>
-            <boot_repl>1</boot_repl>
+            <agg_sl1l2>true</agg_sl1l2>
+            <boot_repl>%BOOT_REPL%</boot_repl>
             <boot_random_seed/>
             <boot_ci>perc</boot_ci>
             <eveq_dis>false</eveq_dis>
             <cache_agg_stat>false</cache_agg_stat>
         </agg_stat>
-        <plot_stat>median</plot_stat>
+        <plot_stat>mean</plot_stat>
         <tmpl>
-             <val_map name="fcst_var">
-                 <pair> <key>CAPE</key> <val>CAPE</val> </pair>
-             </val_map>
+	     <val_map name="fcst_var">
+                 <pair> <key>CAPE</key> <val>Domain-Averaged CAPE</val> </pair>
+	     </val_map>
 
 
             <val_map name="stat">
-                <pair> <key>CSI</key> <val>CSI</val> </pair>
-                <pair> <key>FBIAS</key> <val>FBIAS</val> </pair>
+		<pair> <key>FBAR</key> <val>FBAR</val> </pair>
+		<pair> <key>OBAR</key> <val>OBAR</val> </pair>
             </val_map>
 
-            <data_file>%VERF_JOB%_%region%_{dep1_1}_gt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.data</data_file>
-            <plot_file>%VERF_JOB%_%region%_{dep1_1}_gt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.png</plot_file>
-            <r_file>%VERF_JOB%_%region%_{dep1_1}_gt%THRESH%_{dep1_1_stat1?map=stat}_F%FF%.R</r_file>
-            <title>%REGION% {dep1_1?map=fcst_var} &gt; %THRESH% J/kg {dep1_1_stat1?map=stat}, %FF%-h Forecasts: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
-            <x_label>Initialization Date</x_label>
-	    <y1_label>{dep1_1_stat1?map=stat}</y1_label>
+            <data_file>%VERF_JOB%_%region%_%CC%z_{dep1_1}_domain_{dep1_1_stat1?map=stat}.data</data_file>
+            <plot_file>%VERF_JOB%_%region%_%CC%z_{dep1_1}_domain_{dep1_1_stat1?map=stat}.png</plot_file>
+            <r_file>%VERF_JOB%_%region%_%CC%z_{dep1_1}_domain_{dep1_1_stat1}.R</r_file>
+            <title>%REGION% {dep1_1?map=fcst_var}, %CC%Z Cycles: %DD1% %MMM1% %YYYY1% - %DD2% %MMM2% %YYYY2%</title>
+            <x_label>Forecast Lead</x_label>
+	    <y1_label>{dep1_1?map=fcst_var} (J/kg)</y1_label>
             <y2_label/>
             <caption></caption>
             <listdiffseries1>list()</listdiffseries1>
             <listdiffseries2>list()</listdiffseries2>
         </tmpl>
 
-        <event_equal>false</event_equal>
-        <!--event_equal_m>false</event_equal_m-->
+        <!--event_equal>%EVENT_EQ%</event_equal-->
+        <event_equal_m>false</event_equal_m>
         <vert_plot>false</vert_plot>
         <x_reverse>false</x_reverse>
         <num_stats>true</num_stats>
@@ -139,9 +143,10 @@
         <y2tlab_orient>1</y2tlab_orient>
         <y2tlab_perp>0.5</y2tlab_perp>
         <y2tlab_horiz>0.5</y2tlab_horiz>
-        <y2tlab_size>1.25</y2tlab_size>
-        <y2lab_size>1</y2lab_size>
-        <y2lab_offset>1</y2lab_offset>
+        <y2tlab_size>1</y2tlab_size>
+        <y2lab_weight>1</y2lab_weight>
+        <y2lab_size>1.25</y2lab_size>
+        <y2lab_offset>2</y2lab_offset>
         <y2lab_align>0.5</y2lab_align>       
         <legend_box>o</legend_box>
         <legend_inset>c(0, -.25)</legend_inset>
@@ -153,46 +158,37 @@
         <caption_offset>5</caption_offset>
         <caption_align>0</caption_align>
         <ci_alpha>0.05</ci_alpha>
-        <plot_ci>%CI_LIST%</plot_ci>
-        <show_signif>%SIGNIF_LIST%</show_signif>
-        <plot_disp>%DISP_LIST%</plot_disp>
-        <colors>%COLORS_LIST%</colors>
-        <pch>%PCH_LIST%</pch>
-        <type>%TYPE_LIST%</type>
-        <lty>%LTY_LIST%</lty>
-        <lwd>%LWD_LIST%</lwd>
-        <con_series>%CON_LIST%</con_series>
-        <order_series>%ORDER_LIST%</order_series>
-        <legend>%LEGEND_LIST%</legend>
+        <plot_ci>%CI_LIST4%</plot_ci>
+        <show_signif>%SIGNIF_LIST4%</show_signif>
+        <plot_disp>%DISP_LIST4%</plot_disp>
+        <colors>%COLORS_LIST4%</colors>
+        <pch>%PCH_LIST4%</pch>
+        <type>%TYPE_LIST4%</type>
+        <lty>%LTY_LIST4%</lty>
+        <lwd>%LWD_LIST4%</lwd>
+        <con_series>%CON_LIST4%</con_series>
+        <order_series>%ORDER_LIST4%</order_series>
+        <legend>%LEGEND_LIST4%</legend>
         <y1_lim>c()</y1_lim>
         <y1_bufr>0.04</y1_bufr>
-        <y2_lim>c(0,1)</y2_lim>
+        <!--y2_lim>c(0,1)</y2_lim-->
+        <y2_lim>c()</y2_lim>
         <y2_bufr>0.04</y2_bufr>
     </plot>
 
 
-    <plot name="cape_csi" inherits="init_plot">
+    <plot name="cape_diurnal" inherits="lead_plot">
       <dep>
         <dep1>
           <fcst_var name="CAPE">
-            <stat>CSI</stat>
+            <stat>FBAR</stat>
+            <stat>OBAR</stat>
           </fcst_var>
         </dep1>
         <dep2/>
       </dep>
     </plot>
 
-    <plot name="cape_fbias" inherits="init_plot">
-      <dep>
-        <dep1>
-          <fcst_var name="CAPE">
-            <stat>FBIAS</stat>
-          </fcst_var>
-        </dep1>
-        <dep2/>
-      </dep>
-      <plot_cmd>abline(h=1, lty=1, lwd=4, col="#000000FF");</plot_cmd>
-    </plot>
 
 
 </plot_spec>
