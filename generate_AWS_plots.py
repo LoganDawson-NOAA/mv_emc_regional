@@ -1154,7 +1154,13 @@ if str.upper(verf_job) == 'FV3CAM':
 
     # Initial date for current LAM-X experiment
     if str.lower(verf_exp) == 'lam_exp' and str.lower(verf_period) == 'exp_period':
+        vday1 = datetime.datetime(2021,1,1,0,0)
+        time_period = 'init'
+
+    # Start/end dates for fall 2020 LAM-DA (only) experiment
+    elif str.lower(verf_exp) == 'lam_exp' and str.lower(verf_period) == 'exp_period2020':
         vday1 = datetime.datetime(2020,10,15,12,0)
+        exp_vday2 = datetime.datetime(2020,12,31,12,0)
         time_period = 'init'
 
     # Initial date for current LAM-DA experiment
