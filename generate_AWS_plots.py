@@ -1723,13 +1723,6 @@ elif (str.upper(verf_job) == 'FV3CAM' and
     doFcstLead    = True
     doTimeSeries  = True
 
-    doScorecard   = False
-    doPerformance = False
-    doReliability = False
-    doFcstThresh  = False
-    doValidHour   = False
-    doFcstLead    = True
-    doTimeSeries  = False
     event_eq    = 'true'
     boot_repl   = 1000
 
