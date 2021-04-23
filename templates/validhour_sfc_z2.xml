@@ -37,9 +37,7 @@
             </field>
             <field equalize="true" name="obtype">
                 <set name="obtype_1">
-                    <val>ADPSFC</val>
                     <val>ONLYSF</val>
-                    <val>SFCSHP</val>
                 </set>
             </field>
             <field equalize="false" name="vx_mask">
